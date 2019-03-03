@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <title>Attendance</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- mobile specific metas
+    ================================================== -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/vendor.css">
+    <link rel="stylesheet" href="css/main.css">
+
+    <style type="text/css" media="screen">
+        .s-styles { 
+            padding-top: 18rem;
+            padding-bottom: 15rem;
+        }
+    </style>
+
+    <!-- script
+    ================================================== -->
+    <script src="js/modernizr.js"></script>
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+</head>
+
+
+<body id="top">
+    
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader" class="dots-jump">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <!-- header
+    ================================================== -->
+    <header class="s-header">
+
+        <div class="header-logo">
+            <a class="site-logo" href="index.html">
+                <img src="images/logo.svg"  style="width:500px;height:130px;" alt="Homepage">
+            </a>
+        </div> <!-- end header-logo -->
+    </header> <!-- end s-header -->
+
+    <br>
+    <br>
+    <br>
+
+
+    <div class="col-six tab-full">
+        <h3>Attendance Progress</h3>
+        <h5>This section shows how much attendance you've covered so far.</h5>
+        <mark>red indicates failed threshold for attendance</mark>
+        <ul class="skill-bars">
+            <li>
+            <div class="progress percent90"><span>90%</span></div>
+            <strong>MAT 120</strong>
+            </li>
+            <li>
+            <div class="progress percent85"><span>85%</span></div>
+            <strong>EEE 281</strong>
+            </li>
+            <li>
+            <div class="progress percent70"><span>70%</span></div>
+            <strong>CNG 213</strong>
+            </li>
+            <li>
+            <div class="progress percent95"><span>95%</span></div>
+            <strong>CNG 223</strong>
+            </li>
+            <li>
+            <div class="progress percent35"><span>35%</span></div>
+            <strong><mark>ENGL 211</mark></strong>
+            </li>
+        </ul>
+
+    </div>
+
+</div> <!-- end row -->
+
+
+    <div class="col-six half-bottom">
+
+        <div class="col-twelve">
+
+                <h3>Stats Tabs</h3>
+                <h4>Missed Hours</h4>
+
+            <ul class="stats-tabs">
+                <li><a href="#">4<em>MAT 120</em></a></li>
+                <li><a href="#">5<em>EEE 281</em></a></li>
+                <li><a href="#">2<em>CNG 213</em></a></li>
+                <li><a href="#">3 <em>CNG 223</em></a></li>
+                <li><a href="#">14 <em>ENGL 211</em></a></li>
+            </ul>
+
+            <h4>Remaining Hours</h4>
+
+            <ul class="stats-tabs">
+                <li><a style="color: rgb(0,255,0)" href="#">10<em>MAT 120</em></a></li>
+                <li><a style="color: rgb(0,255,0)" href="#">9<em>EEE 281</em></a></li>
+                <li><a style="color: rgb(0,255,0)" href="#">7<em>CNG 213</em></a></li>
+                <li><a style="color: rgb(0,255,0)" href="#">10<em>CNG 223</em></a></li>
+                <li><a style="color: rgb(255,0,0)" href="#">0<em>ENGL 211</em></a></li>
+            </ul>
+        </div>
+    </div> <!-- end row -->
+
+
+    <div class="row add-bottom">
+
+            <div class="col-twelve">
+
+                <h3>Last missed lectures</h3>
+                <p>Displays the last 7 days.</p>
+
+                <div class="table-responsive">
+
+                    <table>
+                            <thead>
+                            <tr>
+                                <th>Course</th>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Location</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>MAT 120</td>
+                                <td>29.02.2019</td>
+                                <td>08.40-09.40</td>
+                                <td>TZ-20</td>
+                            </tr>
+                            <tr>
+                                <td>ENGL 211</td>
+                                <td>28.02.2019</td>
+                                <td>15.40-17.40</td>
+                                <td>S-103</td>
+                            </tr>
+                            </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+            
+        </div> <!-- end row -->
+
+
+
+  
+    <!-- styles
+    ================================================== -->
+    <section id="styles" class="s-styles">
+        
+        <div class="row">
+
+            <div class="center">
+
+                <h3>Objection Form</h3>
+
+                <form>
+                        <div>
+                            <label for="sampleInput">Student ID</label>
+                            <input class="full-width" type="email" placeholder="e202020" id="sampleInput" readonly style="width:200px;">
+                    </div>
+                    <div>
+                            <label for="sampleRecipientInput">Course you're objecting</label>
+                            <div class="ss-custom-select" style="width:200px;">
+                                <select class="full-width" id="sampleRecipientInput">
+                                    <option value="Option 1">MAT 120</option>
+                                    <option value="Option 2">EEE 281</option>
+                                    <option value="Option 3">CNG 213</option>
+                                    <option value="Option 3">CNG 223</option>
+                                    <option value="Option 3">ENGL 211</option>
+                                </select>
+                            </div>
+                    </div>
+                        <label for="exampleMessage">Message</label>
+                        <textarea class="full-width" placeholder="Please indicate time,date and reason for you objection." id="exampleMessage"></textarea>
+                        <input class="btn--primary full-width" type="submit" value="Submit" style="width:400px;">
+
+                </form>
+
+            </div>
+        </div> <!-- end row -->
+
+    </section> <!-- end styles -->
+
+    <!-- footer
+    ================================================== -->
+    <footer>
+        <div class="row">
+            <div class="col-full ss-copyright">
+                <span>© Copyright ODTUclass 2019</span>
+            </div>
+        </div>
+
+        <div class="ss-go-top">
+            <a class="smoothscroll" title="Back to Top" href="#top">Back to Top</a>
+        </div>
+    </footer>
+
+
+    <!-- photoswipe background
+    ================================================== -->
+    <div aria-hidden="true" class="pswp" role="dialog" tabindex="-1">
+
+        <div class="pswp__bg"></div>
+        <div class="pswp__scroll-wrap">
+
+            <div class="pswp__container">
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+                <div class="pswp__item"></div>
+            </div>
+
+            <div class="pswp__ui pswp__ui--hidden">
+                <div class="pswp__top-bar">
+                    <div class="pswp__counter"></div><button class="pswp__button pswp__button--close" title="Close (Esc)"></button> <button class="pswp__button pswp__button--share" title=
+                    "Share"></button> <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button> <button class="pswp__button pswp__button--zoom" title=
+                    "Zoom in/out"></button>
+                    <div class="pswp__preloader">
+                        <div class="pswp__preloader__icn">
+                            <div class="pswp__preloader__cut">
+                                <div class="pswp__preloader__donut"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                    <div class="pswp__share-tooltip"></div>
+                </div><button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)"></button> <button class="pswp__button pswp__button--arrow--right" title=
+                "Next (arrow right)"></button>
+                <div class="pswp__caption">
+                    <div class="pswp__caption__center"></div>
+                </div>
+            </div>
+
+        </div>
+
+    </div> <!-- end photoSwipe background -->
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+
+</body>

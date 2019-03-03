@@ -136,7 +136,7 @@
     <br>
     <form action="upload.php?name=<?php echo $_GET["name"] ?>" style="text-align: center;font-size:16pt;" method="POST" enctype="multipart/form-data">
 		Please select video: <input type="file" name="file"><br>
-		<button type="submit" style="width: 500px;" name="submit">UPLOAD</button>
+		<button class="smoothscroll btn btn--primary btn--large" type="submit" style="width: 500px;" name="submit">UPLOAD</button>
 	</form>
 
     <!-- about
