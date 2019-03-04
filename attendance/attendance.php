@@ -106,21 +106,21 @@
                 <h4>Missed Hours</h4>
 
             <ul class="stats-tabs">
-                <li><a href="#">4<em>MAT 120</em></a></li>
-                <li><a href="#">5<em>EEE 281</em></a></li>
-                <li><a href="#">2<em>CNG 213</em></a></li>
-                <li><a href="#">3 <em>CNG 223</em></a></li>
-                <li><a href="#">14 <em>ENGL 211</em></a></li>
+                <li><a>4<em>MAT 120</em></a></li>
+                <li><a>5<em>EEE 281</em></a></li>
+                <li><a>2<em>CNG 213</em></a></li>
+                <li><a>3 <em>CNG 223</em></a></li>
+                <li><a>14 <em>ENGL 211</em></a></li>
             </ul>
 
             <h4>Remaining Hours</h4>
 
             <ul class="stats-tabs">
-                <li><a style="color: rgb(0,255,0)" href="#">10<em>MAT 120</em></a></li>
-                <li><a style="color: rgb(0,255,0)" href="#">9<em>EEE 281</em></a></li>
-                <li><a style="color: rgb(0,255,0)" href="#">7<em>CNG 213</em></a></li>
-                <li><a style="color: rgb(0,255,0)" href="#">10<em>CNG 223</em></a></li>
-                <li><a style="color: rgb(255,0,0)" href="#">0<em>ENGL 211</em></a></li>
+                <li><a style="color: rgb(0,255,0)">10<em>MAT 120</em></a></li>
+                <li><a style="color: rgb(0,255,0)">9<em>EEE 281</em></a></li>
+                <li><a style="color: rgb(0,255,0)">7<em>CNG 213</em></a></li>
+                <li><a style="color: rgb(0,255,0)">10<em>CNG 223</em></a></li>
+                <li><a style="color: rgb(255,0,0)">0<em>ENGL 211</em></a></li>
             </ul>
         </div>
     </div> <!-- end row -->
@@ -150,12 +150,14 @@
                                 <td>29.02.2019</td>
                                 <td>08.40-09.40</td>
                                 <td>TZ-20</td>
+                                <td><input id="120" value="Object!" onclick="moveNumbers('MAT 120','29.02.2019','08.40-09.40')" type="button" class="btn btn--primary full-width"></td>
                             </tr>
                             <tr>
                                 <td>ENGL 211</td>
                                 <td>28.02.2019</td>
                                 <td>15.40-17.40</td>
                                 <td>S-103</td>
+                                <td><input id="120" value="Object!" onclick="moveNumbers('ENGL 211','28.02.2019','15.40-17.40')" type="button" class="btn btn--primary full-width"></td>
                             </tr>
                             </tbody>
                     </table>
@@ -184,20 +186,30 @@
                             <label for="sampleInput">Student ID</label>
                             <input class="full-width" type="email" placeholder="e202020" id="sampleInput" readonly style="width:200px;">
                     </div>
-                    <div>
-                            <label for="sampleRecipientInput">Course you're objecting</label>
-                            <div class="ss-custom-select" style="width:200px;">
-                                <select class="full-width" id="sampleRecipientInput">
-                                    <option value="Option 1">MAT 120</option>
-                                    <option value="Option 2">EEE 281</option>
-                                    <option value="Option 3">CNG 213</option>
-                                    <option value="Option 3">CNG 223</option>
-                                    <option value="Option 3">ENGL 211</option>
-                                </select>
+                            <div class="full-width" style="position:absolute; left:115px;">
+                                <label for="sampleRecipientInput">Course you're objecting</label>
+                                <input id="courseCode" type="email" name="codeInput" readonly style="width:200px;">
                             </div>
-                    </div>
+                            
+                            <div class="full-width" style="position:absolute; left:350px;">
+                                <label for="dateInput">Course Date</label>
+                                <input id="courseDate" type="email" name="dateInput" readonly style="width:200px;">
+                            </div>
+
+                            <div class="full-width" style="position:absolute; left: 575px;">
+                                <label for="timeInput">Course Time</label>
+                                <input id="courseTime" type="email" name="timeInput" readonly style="width:200px;">
+                            </div>
+                
+
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+
                         <label for="exampleMessage">Message</label>
-                        <textarea class="full-width" placeholder="Please indicate time,date and reason for you objection." id="exampleMessage"></textarea>
+                        <textarea required class="full-width" placeholder="Please indicate time,date and reason for you objection." id="exampleMessage"></textarea>
                         <input class="btn--primary full-width" type="submit" value="Submit" style="width:400px;">
 
                 </form>
@@ -267,5 +279,28 @@
     <script src="js/jquery-3.2.1.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
+
+    <script>
+       // var btnSelam=document.getElementById("120");
+	btnSelam.onclick=function moveNumbers(value){
+		window.alert(value);
+        document.getElementsByName('sampleRecipientInput')[0].placeholder='new text for email';
+	}
+    </script>
+
+<script>
+       function moveNumbers(course,datevar,timevar) {
+        var input = document.getElementById ("courseCode");
+        input.placeholder = course;
+
+        var input = document.getElementById ("courseDate");
+        input.placeholder = datevar;
+
+        var input = document.getElementById ("courseTime");
+        input.placeholder = timevar;
+
+
+}
+    </script>
 
 </body>
