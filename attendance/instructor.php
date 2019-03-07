@@ -5,7 +5,7 @@
     <!--- basic page needs
     ================================================== -->
     <meta charset="utf-8">
-    <title>Attendance</title>
+    <title>Instructor Attendance Management Page</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -67,77 +67,46 @@
 
 
     <div class="col-six tab-full">
-        <h3>Attendance Progress</h3>
-        <h5>This section shows how much attendance you've covered so far.</h5>
-        <mark>red indicates failed threshold for attendance</mark>
-        <ul class="skill-bars">
-            <li>
-            <div class="progress percent90"><span>90%</span></div>
-            <strong>MAT 120</strong>
-            </li>
-            <li>
-            <div class="progress percent85"><span>85%</span></div>
-            <strong>EEE 281</strong>
-            </li>
-            <li>
-            <div class="progress percent70"><span>70%</span></div>
-            <strong>CNG 213</strong>
-            </li>
-            <li>
-            <div class="progress percent95"><span>95%</span></div>
-            <strong>CNG 223</strong>
-            </li>
-            <li>
-            <div class="progress percent35"><span>35%</span></div>
-            <strong><mark>ENGL 211</mark></strong>
-            </li>
-        </ul>
-
+        <h3>Attendance Management</h3>
+        <h5>This section shows the details of the students' attendance.</h5>
+        <mark>red indicates failed students</mark>
     </div>
+
+    <div class="col-six half-bottom">
+
+<div class="col-twelve">
+
+        <h3>Your Course Stats</h3>
+        <h4>Total Students</h4>
+
+    <ul class="stats-tabs">
+        <li><a>40<em>CNG 140</em></a></li>
+        <li><a>25<em>CNG 111</em></a></li>
+        <li><a>29<em>CNG 213</em></a></li>
+        <li><a>36<em>CNG 223</em></a></li>
+    </ul>
+</div>
+</div> <!-- end row -->
 
 </div> <!-- end row -->
 
 
-    <div class="col-six half-bottom">
-
-        <div class="col-twelve">
-
-                <h3>Stats Tabs</h3>
-                <h4>Missed Hours</h4>
-
-            <ul class="stats-tabs">
-                <li><a>4<em>MAT 120</em></a></li>
-                <li><a>5<em>EEE 281</em></a></li>
-                <li><a>2<em>CNG 213</em></a></li>
-                <li><a>3 <em>CNG 223</em></a></li>
-                <li><a>14 <em>ENGL 211</em></a></li>
-            </ul>
-
-            <h4>Remaining Hours</h4>
-
-            <ul class="stats-tabs">
-                <li><a style="color: rgb(0,255,0)">10<em>MAT 120</em></a></li>
-                <li><a style="color: rgb(0,255,0)">9<em>EEE 281</em></a></li>
-                <li><a style="color: rgb(0,255,0)">7<em>CNG 213</em></a></li>
-                <li><a style="color: rgb(0,255,0)">10<em>CNG 223</em></a></li>
-                <li><a style="color: rgb(255,0,0)">0<em>ENGL 211</em></a></li>
-            </ul>
-        </div>
-    </div> <!-- end row -->
+  
 
 
     <div class="row add-bottom">
 
             <div class="col-twelve">
 
-                <h3>Last missed lectures</h3>
-                <p>Displays the last 7 days.</p>
+                <h3>Objections waiting</h3>
+                <p>Objections made by students.</p>
 
                 <div class="table-responsive">
 
                     <table>
                             <thead>
                             <tr>
+                                <th>Student ID</th>
                                 <th>Course</th>
                                 <th>Date</th>
                                 <th>Time</th>
@@ -146,18 +115,20 @@
                             </thead>
                             <tbody>
                             <tr>
+                                <td>e202020</td>
                                 <td>MAT 120</td>
                                 <td>29.02.2019</td>
                                 <td>08.40-09.40</td>
                                 <td>TZ-20</td>
-                                <td><input id="120" value="Object!" onclick="moveNumbers('MAT 120','29.02.2019','08.40-09.40')" type="button" class="btn btn--primary full-width"></td>
+                                <td><input id="120" value="Respond!" onclick="moveNumbers('e202020','MAT 120','29.02.2019','08.40-09.40')" type="button" class="btn btn--primary full-width"></td>
                             </tr>
                             <tr>
+                                <td>e202080</td>
                                 <td>ENGL 211</td>
                                 <td>28.02.2019</td>
                                 <td>15.40-17.40</td>
                                 <td>S-103</td>
-                                <td><input id="120" value="Object!" onclick="moveNumbers('ENGL 211','28.02.2019','15.40-17.40')" type="button" class="btn btn--primary full-width"></td>
+                                <td><input id="120" value="Respond!" onclick="moveNumbers('e202080','ENGL 211','28.02.2019','15.40-17.40')" type="button" class="btn btn--primary full-width"></td>
                             </tr>
                             </tbody>
                     </table>
@@ -177,14 +148,14 @@
         
         <div class="row">
 
-            <div class="center" href="#objection" id="objection">
+            <div class="center">
 
-                <h3>Objection Form</h3>
+                <h3>Respond Form</h3>
 
                 <form>
                         <div>
                             <label for="sampleInput">Student ID</label>
-                            <input class="full-width" type="email" placeholder="e202020" id="sampleInput" readonly style="width:200px;">
+                            <input class="full-width" type="email" placeholder="e202020" id="studentId" readonly style="width:200px;">
                     </div>
                             <div class="full-width" style="position:absolute; left:115px;">
                                 <label for="sampleRecipientInput">Course you're objecting</label>
@@ -200,28 +171,69 @@
                                 <label for="timeInput">Course Time</label>
                                 <input id="courseTime" type="email" name="timeInput" readonly style="width:200px;">
                             </div>
-                
+
+                            
 
                         <br>
                         <br>
                         <br>
                         <br>
                         <br>
+
+                        <div class="col-six tab-full">
+
+                <h3>Student Photo</h3>
+                <p><img src="images/face2.jpg" alt=""></p>
+
+            </div>
+
+            <div class="col-six tab-full">
+
+                <h3>Class Video</h3>
+
+                <div class="video-container">
+                <iframe src="https://player.vimeo.com/video/124045311?title=0&amp;byline=0&amp;portrait=0&amp;color=F64B39" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> 
+                </div>
+
+                <br>
+                        <br>
+                        <br>
+                        <br>
+
+                </div>
+
+              
+
+                
+                <div class="container">
+                    
+                    <h2>Is Present ?</h2>
+                    
+                <ul>
+                <li>
+                    <input type="radio" id="f-option" name="selector">
+                    <label for="f-option">Present</label>
+                    
+                    <div class="check"></div>
+                </li>
+                
+                <li>
+                    <input type="radio" id="s-option" name="selector">
+                    <label for="s-option" required>Not Present</label>
+                    
+                    <div class="check"><div class="inside"></div></div>
+                </li>
+                </ul>
+                </div>
 
                         <label for="exampleMessage">Message</label>
-                        <textarea required class="full-width" placeholder="Please indicate time,date and reason for you objection." id="exampleMessage"></textarea>
+                        <textarea required class="full-width" placeholder="Please indicate your response details here." id="exampleMessage"></textarea>
                         <input class="btn--primary full-width" type="submit" value="Submit" style="width:400px;">
 
                 </form>
 
             </div>
         </div> <!-- end row -->
-
-        <div class="home-content__scroll">
-                <a href="#objection" class="scroll-link smoothscroll">
-                    Scroll to the objection form
-                </a>
-        </div>
 
     </section> <!-- end styles -->
 
@@ -295,7 +307,11 @@
     </script>
 
 <script>
-       function moveNumbers(course,datevar,timevar) {
+       function moveNumbers(studentid,course,datevar,timevar) {
+        
+        var input = document.getElementById ("studentId");
+        input.placeholder = studentid;
+        
         var input = document.getElementById ("courseCode");
         input.placeholder = course;
 
@@ -307,6 +323,46 @@
 
 
 }
+    </script>
+
+    <script>
+
+const st = {};
+
+st.flap = document.querySelector('#flap');
+st.toggle = document.querySelector('.toggle');
+
+st.choice1 = document.querySelector('#choice1');
+st.choice2 = document.querySelector('#choice2');
+
+st.flap.addEventListener('transitionend', () => {
+
+    if (st.choice1.checked) {
+        st.toggle.style.transform = 'rotateY(-15deg)';
+        setTimeout(() => st.toggle.style.transform = '', 400);
+    } else {
+        st.toggle.style.transform = 'rotateY(15deg)';
+        setTimeout(() => st.toggle.style.transform = '', 400);
+    }
+
+})
+
+st.clickHandler = (e) => {
+
+    if (e.target.tagName === 'LABEL') {
+        setTimeout(() => {
+            st.flap.children[0].textContent = e.target.textContent;
+        }, 250);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    st.flap.children[0].textContent = st.choice2.nextElementSibling.textContent;
+});
+
+document.addEventListener('click', (e) => st.clickHandler(e));
+
+
     </script>
 
 </body>
