@@ -54,11 +54,40 @@
     ================================================== -->
     <header class="s-header">
 
-        <div class="header-logo">
-            <a class="site-logo" href="index.html">
-                <img src="images/logo.svg"  style="width:500px;height:130px;" alt="Homepage">
-            </a>
-        </div> <!-- end header-logo -->
+            <div class="header-logo">
+                    <a class="site-logo" href="index.html">
+                        <img src="images/logo.svg"  style="width:500px;height:130px;" alt="Homepage">
+                    </a>
+            </div> <!-- end header-logo -->
+
+            <div style="margin-left:1200px;">
+            <ul class="nav">
+                  <li><a><b><i class="icon-user icon-white"></i>admin</a></b></li>
+            </ul>
+            </div>
+            
+
+
+        <nav class="header-nav">
+
+            <a href="#0" class="header-nav__close" title="close"><span>Close</span></a>
+
+            <h3>Navigate to</h3>
+
+            <div class="header-nav__content">
+                
+                <ul class="header-nav__list">
+                    <li><a class="smoothscroll"  href="#missed" title="GO TO Missed Lectures">Last missed lectures</a></li>
+                    <li><a class="smoothscroll"  href="#objection" title="GO TO Objection Form">Objection Form</a></li>
+                </ul>
+            </div> <!-- end header-nav__content -->
+
+        </nav> <!-- end header-nav -->
+
+        <a class="header-menu-toggle" href="#0">
+            <span class="header-menu-icon"></span>
+        </a>
+
     </header> <!-- end s-header -->
 
     <br>
@@ -98,7 +127,7 @@
 </div> <!-- end row -->
 
 
-    <div class="col-six half-bottom">
+    <div class="col-six tab-full">
 
         <div class="col-twelve">
 
@@ -106,21 +135,25 @@
                 <h4>Missed Hours</h4>
 
             <ul class="stats-tabs">
-                <li><a>4<em>MAT 120</em></a></li>
-                <li><a>5<em>EEE 281</em></a></li>
-                <li><a>2<em>CNG 213</em></a></li>
-                <li><a>3 <em>CNG 223</em></a></li>
-                <li><a>14 <em>ENGL 211</em></a></li>
+                <li>
+                <a>4<em>MAT 120</em></a>
+                <a>5<em>EEE 281</em></a>
+                <a>2<em>CNG 213</em></a>
+                <a>3 <em>CNG 223</em></a>
+                <a>14 <em>ENGL 211</em></a>
+                </li>
             </ul>
 
             <h4>Remaining Hours</h4>
 
             <ul class="stats-tabs">
-                <li><a style="color: rgb(0,255,0)">10<em>MAT 120</em></a></li>
-                <li><a style="color: rgb(0,255,0)">9<em>EEE 281</em></a></li>
-                <li><a style="color: rgb(0,255,0)">7<em>CNG 213</em></a></li>
-                <li><a style="color: rgb(0,255,0)">10<em>CNG 223</em></a></li>
-                <li><a style="color: rgb(255,0,0)">0<em>ENGL 211</em></a></li>
+                <li>
+                <a style="color: rgb(0,255,0)">10<em>MAT 120</em></a>
+                <a style="color: rgb(0,255,0)">9<em>EEE 281</em></a>
+                <a style="color: rgb(0,255,0)">7<em>CNG 213</em></a>
+                <a style="color: rgb(0,255,0)">10<em>CNG 223</em></a>
+                <a style="color: rgb(255,0,0)">0<em>ENGL 211</em></a>
+            </li>
             </ul>
         </div>
     </div> <!-- end row -->
@@ -128,7 +161,7 @@
 
     <div class="row add-bottom">
 
-            <div class="col-twelve">
+            <div class="col-twelve" id="missed">
 
                 <h3>Last missed lectures</h3>
                 <p>Displays the last 7 days.</p>

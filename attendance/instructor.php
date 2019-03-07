@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/vendor.css">
     <link rel="stylesheet" href="css/main.css">
+   
+    
 
     <style type="text/css" media="screen">
         .s-styles { 
@@ -39,7 +41,7 @@
 
 
 <body id="top">
-    
+
     <!-- preloader
     ================================================== -->
     <div id="preloader">
@@ -54,11 +56,41 @@
     ================================================== -->
     <header class="s-header">
 
-        <div class="header-logo">
-            <a class="site-logo" href="index.html">
-                <img src="images/logo.svg"  style="width:500px;height:130px;" alt="Homepage">
-            </a>
-        </div> <!-- end header-logo -->
+            <div class="header-logo">
+                    <a class="site-logo" href="index.html">
+                        <img src="images/logo.svg"  style="width:500px;height:130px;" alt="Homepage">
+                    </a>
+            </div> <!-- end header-logo -->
+
+            <div style="margin-left:1200px;">
+            <ul class="nav">
+                  <li><a><b><i class="icon-user icon-white"></i>admin</a></b></li>
+            </ul>
+            </div>
+            
+
+
+        <nav class="header-nav">
+
+            <a href="#0" class="header-nav__close" title="close"><span>Close</span></a>
+
+            <h3>Navigate to</h3>
+
+            <div class="header-nav__content">
+                
+                <ul class="header-nav__list">
+                    <li><a class="smoothscroll"  href="#students" title="GO TO Students">Students</a></li>
+                    <li><a class="smoothscroll"  href="#obj" title="GO TO Waiting Objections">Objections Waiting</a></li>
+                    <li><a class="smoothscroll"  href="#styles" title="GO TO Respond Form">Respond Form</a></li>
+                </ul>
+            </div> <!-- end header-nav__content -->
+
+        </nav> <!-- end header-nav -->
+
+        <a class="header-menu-toggle" href="#0">
+            <span class="header-menu-icon"></span>
+        </a>
+
     </header> <!-- end s-header -->
 
     <br>
@@ -74,16 +106,21 @@
 
     <div class="col-six half-bottom">
 
+    
+
 <div class="col-twelve">
 
         <h3>Your Course Stats</h3>
         <h4>Total Students</h4>
 
+
     <ul class="stats-tabs">
-        <li><a>40<em>CNG 140</em></a></li>
-        <li><a>25<em>CNG 111</em></a></li>
-        <li><a>29<em>CNG 213</em></a></li>
-        <li><a>36<em>CNG 223</em></a></li>
+        <li>
+        <a>40<em>CNG 140</em></a>
+        <a>25<em>CNG 111</em></a>
+        <a>29<em>CNG 213</em></a>
+        <a>36<em>CNG 223</em></a>
+    </li>
     </ul>
 </div>
 </div> <!-- end row -->
@@ -92,9 +129,48 @@
 
 
   
+<div id="students" class="row add-bottom">
 
 
-    <div class="row add-bottom">
+<div class="col-twelve">
+
+    <h3>Students</h3>
+    <p>List of students enrolled.</p>
+
+    <div class="table-responsive">
+
+        <table>
+                <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>e201671</td>
+                    <td>Alper</td>
+                    <td>Calisir</td>
+                </tr>
+                <tr>
+                    <td>e202080</td>
+                    <td>Some</td>
+                    <td>Person</td>
+                </tr>
+                </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+</div> <!-- end row -->        
+
+
+
+
+    <div id="obj" class="row add-bottom">
 
             <div class="col-twelve">
 
@@ -299,6 +375,51 @@
     <script src="js/main.js"></script>
 
     <script>
+
+var count = 1
+setTimeout(demo, 500)
+setTimeout(demo, 700)
+setTimeout(demo, 900)
+setTimeout(reset, 2000)
+
+setTimeout(demo, 2500)
+setTimeout(demo, 2750)
+setTimeout(demo, 3050)
+
+
+var mousein = false
+function demo() {
+   if(mousein) return
+   document.getElementById('demo' + count++)
+      .classList.toggle('hover')
+   
+}
+
+function demo2() {
+   if(mousein) return
+   document.getElementById('demo2')
+      .classList.toggle('hover')
+}
+
+function reset() {
+   count = 1
+   var hovers = document.querySelectorAll('.hover')
+   for(var i = 0; i < hovers.length; i++ ) {
+      hovers[i].classList.remove('hover')
+   }
+}
+
+document.addEventListener('mouseover', function() {
+   mousein = true
+   reset()
+})
+
+
+    </script>
+
+
+
+    <script>
        // var btnSelam=document.getElementById("120");
 	btnSelam.onclick=function moveNumbers(value){
 		window.alert(value);
@@ -364,5 +485,8 @@ document.addEventListener('click', (e) => st.clickHandler(e));
 
 
     </script>
+
+
+
 
 </body>
