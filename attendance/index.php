@@ -31,7 +31,7 @@
 </head>
 
 
-<body id="top">
+<body id="top" style="background-image:url('images/atten.svg');">
     
     <!-- preloader
     ================================================== -->
@@ -52,54 +52,12 @@
                 <img src="images/logo.svg" style="width:500px;height:130px;" alt="Homepage">
             </a>
         </div> <!-- end header-logo -->
-
-        <nav class="header-nav">
-
-            <a href="#0" class="header-nav__close" title="close"><span>Close</span></a>
-
-            <h3>Navigate to</h3>
-
-            <div class="header-nav__content">
-                
-                <ul class="header-nav__list">
-                    <li><a class="smoothscroll"  href="#home" title="home">Home</a></li>
-                    <li><a class="smoothscroll"  href="#about" title="about">About</a></li>
-                    <li><a class="smoothscroll"  href="#services" title="services">Services</a></li>
-                    <li><a class="smoothscroll"  href="#works" title="works">Works</a></li>
-                    <li><a class="smoothscroll"  href="#contact" title="contact">Contact</a></li>
-                </ul>
-    
-                <p>Perspiciatis hic praesentium nesciunt. Et neque a dolorum <a href='#0'>voluptatem</a> porro iusto sequi veritatis libero enim. Iusto id suscipit veritatis neque reprehenderit.</p>
-    
-                <ul class="header-nav__social">
-                    <li>
-                        <a href="#0"><i class="fab fa-facebook"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fab fa-twitter"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fab fa-instagram"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fab fa-behance"></i></a>
-                    </li>
-                    <li>
-                        <a href="#0"><i class="fab fa-dribbble"></i></a>
-                    </li>
-                </ul>
-
-            </div> <!-- end header-nav__content -->
-
-        </nav> <!-- end header-nav -->
-
-    
     </header> <!-- end s-header -->
 
 
     <!-- home
     ================================================== -->
-    <section id="home" class="s-home page-hero target-section" data-parallax="scroll" data-image-src="images/atten.jpg" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
+    <section id="home" class="s-home page-hero target-section" data-parallax="scroll" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
 
         <div class="grid-overlay">
             <div></div>
@@ -130,10 +88,9 @@
         </div> <!-- end home-content -->
     </section> <!-- end s-home -->
 
-    <br>
  
     <form action="upload.php?name=<?php echo $_GET["name"] ?>" style="text-align: center;font-size:16pt;" method="POST" enctype="multipart/form-data">
-    <label for="file-upload" class="btn--primary">
+    <label for="file-upload" class="btn--primary" style="font-size: 45px;">
     <i class="fa fa-cloud-upload"></i> Please select video:
     </label>
     <input id="file-upload" type="file"/>

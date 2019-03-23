@@ -21,6 +21,7 @@
    
     
 
+
     <style type="text/css" media="screen">
         .s-styles { 
             padding-top: 18rem;
@@ -145,6 +146,7 @@
                     <th>Student ID</th>
                     <th>Name</th>
                     <th>Surname</th>
+                    <th>Video Status</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -152,11 +154,17 @@
                     <td>e201671</td>
                     <td>Alper</td>
                     <td>Calisir</td>
+                    <td style="color:red;">Not Uploaded</td>
+                    <td><a href="#" class="btn btn-info btn-lg">
+                    <span class="glyphicon glyphicon-send"></span> Send Email
+                    </a>
+                    </td>
                 </tr>
                 <tr>
                     <td>e202080</td>
                     <td>Some</td>
                     <td>Person</td>
+                    <td style="color:green;">Uploaded</td>
                 </tr>
                 </tbody>
         </table>
@@ -196,7 +204,7 @@
                                 <td>29.02.2019</td>
                                 <td>08.40-09.40</td>
                                 <td>TZ-20</td>
-                                <td><input id="120" value="Respond!" onclick="moveNumbers('e202020','MAT 120','29.02.2019','08.40-09.40')" type="button" class="btn btn--primary full-width"></td>
+                                <td><input id="120" value="Respond!" onclick="moveNumbers('e202020','MAT 120','29.02.2019','08.40-09.40','images/newface.jpg')" type="button" class="btn btn--primary full-width"></td>
                             </tr>
                             <tr>
                                 <td>e202080</td>
@@ -204,7 +212,7 @@
                                 <td>28.02.2019</td>
                                 <td>15.40-17.40</td>
                                 <td>S-103</td>
-                                <td><input id="120" value="Respond!" onclick="moveNumbers('e202080','ENGL 211','28.02.2019','15.40-17.40')" type="button" class="btn btn--primary full-width"></td>
+                                <td><input id="120" value="Respond!" onclick="moveNumbers('e202080','ENGL 211','28.02.2019','15.40-17.40','images/face.jpg')" type="button" class="btn btn--primary full-width"></td>
                             </tr>
                             </tbody>
                     </table>
@@ -233,17 +241,17 @@
                             <label for="sampleInput">Student ID</label>
                             <input class="full-width" type="email" placeholder="e202020" id="studentId" readonly style="width:200px;">
                     </div>
-                            <div class="full-width" style="position:absolute; left:115px;">
+                            <div class="full-width" style="position:absolute; left:280px;">
                                 <label for="sampleRecipientInput">Course you're objecting</label>
                                 <input id="courseCode" type="email" name="codeInput" readonly style="width:200px;">
                             </div>
                             
-                            <div class="full-width" style="position:absolute; left:350px;">
+                            <div class="full-width" style="position:absolute; left:550px;">
                                 <label for="dateInput">Course Date</label>
                                 <input id="courseDate" type="email" name="dateInput" readonly style="width:200px;">
                             </div>
 
-                            <div class="full-width" style="position:absolute; left: 575px;">
+                            <div class="full-width" style="position:absolute; left: 825px;">
                                 <label for="timeInput">Course Time</label>
                                 <input id="courseTime" type="email" name="timeInput" readonly style="width:200px;">
                             </div>
@@ -252,30 +260,20 @@
 
                         <br>
                         <br>
-                        <br>
-                        <br>
-                        <br>
 
                         <div class="col-six tab-full">
 
-                <h3>Student Photo</h3>
+                <h3>Class Photo</h3>
                 <p><img src="images/face2.jpg" alt=""></p>
 
             </div>
 
             <div class="col-six tab-full">
 
-                <h3>Class Video</h3>
+                <h3>Student Photo</h3>
+                <p><img id="theImage" src="images/face.jpg" width="200" height="40"></p>
 
-                <div class="video-container">
-                <iframe src="https://player.vimeo.com/video/124045311?title=0&amp;byline=0&amp;portrait=0&amp;color=F64B39" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> 
-                </div>
-
-                <br>
-                        <br>
-                        <br>
-                        <br>
-
+            
                 </div>
 
               
@@ -428,7 +426,7 @@ document.addEventListener('mouseover', function() {
     </script>
 
 <script>
-       function moveNumbers(studentid,course,datevar,timevar) {
+       function moveNumbers(studentid,course,datevar,timevar,facevar) {
         
         var input = document.getElementById ("studentId");
         input.placeholder = studentid;
@@ -442,6 +440,7 @@ document.addEventListener('mouseover', function() {
         var input = document.getElementById ("courseTime");
         input.placeholder = timevar;
 
+        document.getElementById("theImage").src=facevar;
 
 }
     </script>

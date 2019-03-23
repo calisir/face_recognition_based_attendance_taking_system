@@ -219,17 +219,17 @@
                             <label for="sampleInput">Student ID</label>
                             <input class="full-width" type="email" placeholder="e202020" id="sampleInput" readonly style="width:200px;">
                     </div>
-                            <div class="full-width" style="position:absolute; left:115px;">
+                            <div class="full-width" style="position:absolute; left:280px;">
                                 <label for="sampleRecipientInput">Course you're objecting</label>
                                 <input id="courseCode" type="email" name="codeInput" readonly style="width:200px;">
                             </div>
                             
-                            <div class="full-width" style="position:absolute; left:350px;">
+                            <div class="full-width" style="position:absolute; left:550px;">
                                 <label for="dateInput">Course Date</label>
                                 <input id="courseDate" type="email" name="dateInput" readonly style="width:200px;">
                             </div>
 
-                            <div class="full-width" style="position:absolute; left: 575px;">
+                            <div class="full-width" style="position:absolute; left: 825px;">
                                 <label for="timeInput">Course Time</label>
                                 <input id="courseTime" type="email" name="timeInput" readonly style="width:200px;">
                             </div>
