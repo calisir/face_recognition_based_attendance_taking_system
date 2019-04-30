@@ -18,9 +18,10 @@ if(isset($_POST['submit'])){
 		if ($fileError === 0){
 			if ($fileSize < 150000000){
 				$fileNameNew = $studentid.'.'.$fileExt;
-
-				$destination = '/home/senior/Desktop/senior/videos/'.$fileNameNew;
 				
+				//$destination = '/home/senior/Desktop/senior/videos/'.$fileNameNew;
+				$destination = 'C:/xampp/htdocs/attendance/videos/'.$fileNameNew;
+
 				move_uploaded_file($fileTmpName, $destination);
 				header("Location: success.php");				
 			} else {

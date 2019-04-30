@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -58,7 +60,7 @@
     <header class="s-header">
 
             <div class="header-logo">
-                    <a class="site-logo" href="index.html">
+                    <a class="site-logo" href="index.php">
                         <img src="images/logo.svg"  style="width:500px;height:130px;" alt="Homepage">
                     </a>
             </div> <!-- end header-logo -->
@@ -82,7 +84,7 @@
                 <ul class="header-nav__list">
                     <li><a class="smoothscroll"  href="#students" title="GO TO Students">Students</a></li>
                     <li><a class="smoothscroll"  href="#obj" title="GO TO Waiting Objections">Objections Waiting</a></li>
-                    <li><a class="smoothscroll"  href="#styles" title="GO TO Respond Form">Respond Form</a></li>
+                    <li><a class="smoothscroll"  href="#respondform" title="GO TO Respond Form">Respond Form</a></li>
                 </ul>
             </div> <!-- end header-nav__content -->
 
@@ -117,11 +119,54 @@
 
     <ul class="stats-tabs">
         <li>
-        <a>40<em>CNG 140</em></a>
-        <a>25<em>CNG 111</em></a>
-        <a>29<em>CNG 213</em></a>
-        <a>36<em>CNG 223</em></a>
-    </li>
+
+
+
+            
+        <?php
+        $servername = "127.0.0.1:3307";
+        $username = "root";
+        $password = "";
+        $dbname = "attendance";
+
+        // Create connection
+        $conn = new mysqli($servername, $username, $password, $dbname);
+        // Check connection
+        if ($conn->connect_error) {
+            die("Connection failed: " . $conn->connect_error);
+        } 
+
+        $sql = "SELECT studentsEnrolled, name FROM course";
+        $result = $conn->query($sql);
+
+
+
+        // echo '<table border="0" cellspacing="2" cellpadding="2"> 
+        //     <tr> 
+        //         <th>Student ID</th>
+        //         <th>Name</th>
+        //     </tr>';
+        
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $field1name = $row["studentsEnrolled"];
+                $field2name = $row["name"];
+        
+                echo '<ul> 
+                        <a>'.$field1name.'</a> 
+                        <em>'.$field2name.'</em>
+                    </ul>';
+            }
+            $result->free();
+        } 
+
+        $conn->close();
+        ?>
+            <!-- <a>40<em>CNG 140</em></a>
+            <a>25<em>CNG 111</em></a>
+            <a>29<em>CNG 213</em></a>
+            <a>36<em>CNG 223</em></a> -->
+        </li>
     </ul>
 </div>
 </div> <!-- end row -->
@@ -129,19 +174,99 @@
 </div> <!-- end row -->
 
 
+
+
   
-<div id="students" class="row add-bottom">
+<div class="row add-bottom">
 
 
 <div class="col-twelve">
 
-    <h3>Students</h3>
+
+<br>
+<br>
+
+    <h3 id="students">Students</h3>
     <p>List of students enrolled.</p>
+
+    
+
+
+
+<?php
+$servername = "127.0.0.1:3307";
+$username = "root";
+$password = "";
+$dbname = "attendance";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+$sql = "SELECT id, name, surname FROM student";
+$result = $conn->query($sql);
+
+
+
+echo '<table border="0" cellspacing="2" cellpadding="2"> 
+      <tr> 
+        <th>Student ID</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Video Status</th>
+      </tr>';
+ 
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $field1name = $row["id"];
+        $field2name = $row["name"];
+        $field3name = $row["surname"];
+ 
+        echo '<tr> 
+                  <td>'.$field1name.'</td> 
+                  <td>'.$field2name.'</td> 
+                  <td>'.$field3name.'</td>
+                    <td style="color:red;">Not Uploaded</td>
+                        <td>
+                        <a href="#" class="btn btn-info btn-lg">
+                        <span class="glyphicon glyphicon-send"></span> Send Email
+                        </a>
+                    </td>
+              </tr>';
+    }
+    $result->free();
+} 
+
+$conn->close();
+?>
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
 
     <div class="table-responsive">
 
         <table>
-                <thead>
+                <!-- <thead>
                 <tr>
                     <th>Student ID</th>
                     <th>Name</th>
@@ -166,10 +291,14 @@
                     <td>Person</td>
                     <td style="color:green;">Uploaded</td>
                 </tr>
-                </tbody>
+                </tbody> -->
         </table>
 
     </div>
+
+
+
+
 
 </div>
 
@@ -234,24 +363,24 @@
 
             <div class="center">
 
-                <h3>Respond Form</h3>
+                <h3 id="respondform">Respond Form</h3>
 
                 <form>
                         <div>
                             <label for="sampleInput">Student ID</label>
                             <input class="full-width" type="email" placeholder="e202020" id="studentId" readonly style="width:200px;">
                     </div>
-                            <div class="full-width" style="position:absolute; left:280px;">
-                                <label for="sampleRecipientInput">Course you're objecting</label>
+                            <div class="full-width" style="position:absolute; left:190px;">
+                                <label for="sampleRecipientInput">Course you're responding</label>
                                 <input id="courseCode" type="email" name="codeInput" readonly style="width:200px;">
                             </div>
                             
-                            <div class="full-width" style="position:absolute; left:550px;">
+                            <div class="full-width" style="position:absolute; left:450px;">
                                 <label for="dateInput">Course Date</label>
                                 <input id="courseDate" type="email" name="dateInput" readonly style="width:200px;">
                             </div>
 
-                            <div class="full-width" style="position:absolute; left: 825px;">
+                            <div class="full-width" style="position:absolute; left: 725px;">
                                 <label for="timeInput">Course Time</label>
                                 <input id="courseTime" type="email" name="timeInput" readonly style="width:200px;">
                             </div>

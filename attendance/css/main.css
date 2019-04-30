@@ -3316,6 +3316,8 @@ html.no-csstransitions .home-content__main {
    border: 0px solid rgb(200, 255, 0);
  }
  
+
+
  input[type=radio]:checked ~ .check::before{
    background: rgb(255, 251, 0);
  }

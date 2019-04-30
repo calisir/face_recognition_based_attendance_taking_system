@@ -55,7 +55,7 @@
     <header class="s-header">
 
             <div class="header-logo">
-                    <a class="site-logo" href="index.html">
+                    <a class="site-logo" href="index.php">
                         <img src="images/logo.svg"  style="width:500px;height:130px;" alt="Homepage">
                     </a>
             </div> <!-- end header-logo -->
@@ -219,17 +219,17 @@
                             <label for="sampleInput">Student ID</label>
                             <input class="full-width" type="email" placeholder="e202020" id="sampleInput" readonly style="width:200px;">
                     </div>
-                            <div class="full-width" style="position:absolute; left:280px;">
+                            <div class="full-width" style="position:absolute; left:190px;">
                                 <label for="sampleRecipientInput">Course you're objecting</label>
                                 <input id="courseCode" type="email" name="codeInput" readonly style="width:200px;">
                             </div>
                             
-                            <div class="full-width" style="position:absolute; left:550px;">
+                            <div class="full-width" style="position:absolute; left:450px;">
                                 <label for="dateInput">Course Date</label>
                                 <input id="courseDate" type="email" name="dateInput" readonly style="width:200px;">
                             </div>
 
-                            <div class="full-width" style="position:absolute; left: 825px;">
+                            <div class="full-width" style="position:absolute; left: 725px;">
                                 <label for="timeInput">Course Time</label>
                                 <input id="courseTime" type="email" name="timeInput" readonly style="width:200px;">
                             </div>
