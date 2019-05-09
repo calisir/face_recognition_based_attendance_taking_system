@@ -111,6 +111,7 @@
 
     
 
+
 <div class="col-twelve">
 
         <h3>Your Course Stats</h3>
@@ -190,7 +191,11 @@
     <p>List of students enrolled.</p>
 
     
-
+    <?php
+    //$command = escapeshellcmd('python C:\xampp\htdocs\attendance\videos\folder\test.py');
+    //$output = shell_exec('python C:\xampp\htdocs\attendance\videos\folder\test.py');
+    //echo "$output"; 
+    ?>
 
 
 <?php
@@ -199,6 +204,8 @@ $username = "root";
 $password = "";
 $dbname = "attendance";
 
+$allUploaded=1;
+
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 // Check connection
@@ -206,7 +213,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$sql = "SELECT id, name, surname FROM student";
+$sql = "SELECT id, name, surname,videoStatus FROM student";
 $result = $conn->query($sql);
 
 
@@ -224,17 +231,17 @@ if ($result->num_rows > 0) {
         $field1name = $row["id"];
         $field2name = $row["name"];
         $field3name = $row["surname"];
- 
+        $field4name = $row["videoStatus"];
+        
+        if($field4name==0){
+            //echo $field4name;
+            $allUploaded=0;
+        }
         echo '<tr> 
                   <td>'.$field1name.'</td> 
                   <td>'.$field2name.'</td> 
                   <td>'.$field3name.'</td>
-                    <td style="color:red;">Not Uploaded</td>
-                        <td>
-                        <a href="#" class="btn btn-info btn-lg">
-                        <span class="glyphicon glyphicon-send"></span> Send Email
-                        </a>
-                    </td>
+                  <td>'.$field4name.'</td>
               </tr>';
     }
     $result->free();
@@ -244,11 +251,14 @@ $conn->close();
 ?>
 
 
+<!-- <td style="color:red;">Not Uploaded</td>
+//                         <td>
+//                         <a href="#" class="btn btn-info btn-lg">
+//                         <span class="glyphicon glyphicon-send"></span> Send Email
+//                         </a>
+//                     </td> -->
 
         
-
-
-
 
 
 
@@ -294,6 +304,43 @@ $conn->close();
                 </tbody> -->
         </table>
 
+
+        <?php
+        if($allUploaded==1) { ?>
+        <!-- <input id="1010" name="train" value="Start Training" type="button" class="btn btn--primary full-width"> -->
+        <form method="post">
+            <input type="submit" name="test" id="test" value="RUN" /><br/>
+        </form>
+        <?php 
+        } else { ?>
+        <p>Not all students uploaded his/her videos.</p>
+        <?php } ?>
+
+        
+
+                
+        <?php
+
+        function testfun()
+        {
+            //$command = escapeshellcmd('python C:\xampp\htdocs\attendance\videos\folder\test.py');
+            $output = shell_exec('python C:\xampp\htdocs\attendance\videos\ok1.py -f C:\xampp\htdocs\attendance\videos\cng492\ -o C:\xampp\htdocs\attendance\videos\cng492dataset');
+            echo "All students have been trained."; 
+        }
+
+        if(array_key_exists('test',$_POST)){
+        testfun();
+        }
+
+        ?>
+
+
+
+
+
+
+
+
     </div>
 
 
@@ -314,42 +361,83 @@ $conn->close();
                 <h3>Objections waiting</h3>
                 <p>Objections made by students.</p>
 
+
+
+
+                
+
                 <div class="table-responsive">
 
-                    <table>
-                            <thead>
-                            <tr>
-                                <th>Student ID</th>
-                                <th>Course</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Location</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>e202020</td>
-                                <td>MAT 120</td>
-                                <td>29.02.2019</td>
-                                <td>08.40-09.40</td>
-                                <td>TZ-20</td>
-                                <td><input id="120" value="Respond!" onclick="moveNumbers('e202020','MAT 120','29.02.2019','08.40-09.40','images/newface.jpg')" type="button" class="btn btn--primary full-width"></td>
-                            </tr>
-                            <tr>
-                                <td>e202080</td>
-                                <td>ENGL 211</td>
-                                <td>28.02.2019</td>
-                                <td>15.40-17.40</td>
-                                <td>S-103</td>
-                                <td><input id="120" value="Respond!" onclick="moveNumbers('e202080','ENGL 211','28.02.2019','15.40-17.40','images/face.jpg')" type="button" class="btn btn--primary full-width"></td>
-                            </tr>
-                            </tbody>
+                <table>
+
+                <?php
+                $servername = "127.0.0.1:3307";
+                $username = "root";
+                $password = "";
+                $dbname = "attendance";
+
+                
+
+                // Create connection
+                $conn = new mysqli($servername, $username, $password, $dbname);
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                } 
+
+                $sql = "SELECT student.id,student.name AS sname ,student.surname,course.name AS cname,period.start,classroom.name, class.id AS classid FROM objection, student, class, period, course, classroom WHERE objection.student = student.id AND objection.class = class.id AND class.course = course.id AND class.period = period.id AND class.classroom = classroom.id;";
+                $result = $conn->query($sql);
+
+
+                echo '<table border="0" cellspacing="2" cellpadding="2"> 
+                    <tr> 
+                        <th>Student ID</th>
+                        <th>Student Name</th>
+                        <th>Course</th>
+                        <th>Time</th>
+                        <th>Location</th>
+                    </tr>';
+                $imageVariable='images/newface.jpg';
+                if ($result->num_rows > 0) {
+                    while ($row = $result->fetch_assoc()) {
+
+                        $copy = [];
+
+                        foreach ($row as $index){
+                            array_push($copy,$index);
+                        }
+                        $field1name = $copy[0];
+                        $field2name = $copy[1];
+                        $field3name = $copy[2];
+                        $field4name = $copy[3];
+                        $field5name = $copy[4];
+                        $field6name = $copy[5];
+                        $field7name = $copy[6];
+
+                        
+
+
+                        echo '<tr> 
+                                <td>'.$field1name.'</td>
+                                <td>'.$field2name.' '.$field3name.'</td>
+                                <td>'.$field4name.'</td> 
+                                <td>'.$field5name.'</td>
+                                <td>'.$field6name.'</td>
+                                <td>
+                                    <input id="120" value="Respond!" onclick="moveNumbers(\''.$field1name.'\',\''.$field4name.'\',\''.$field5name.'\',\''.$field7name.'\',\''.$imageVariable.'\')" type="button" class="btn btn--primary full-width">
+                                </td>
+
+                            </tr>';
+                    }
+                    $result->free();
+                } 
+
+                $conn->close();
+                ?>
+
                     </table>
-
                 </div>
-
             </div>
-            
         </div> <!-- end row -->
 
 
@@ -365,37 +453,40 @@ $conn->close();
 
                 <h3 id="respondform">Respond Form</h3>
 
-                <form>
-                        <div>
+                <form action="updateattendancequery.php" method="post" enctype="multipart/form-data">
+                        <div class="full-width">
                             <label for="sampleInput">Student ID</label>
-                            <input class="full-width" type="email" placeholder="e202020" id="studentId" readonly style="width:200px;">
-                    </div>
-                            <div class="full-width" style="position:absolute; left:190px;">
+                            <input class="full-width" type="text" id="studentCode" readonly style="width:200px;" name ="sid">
+                        </div>
+                            
+                            <div class="full-width" style="left:190px;">
                                 <label for="sampleRecipientInput">Course you're responding</label>
                                 <input id="courseCode" type="email" name="codeInput" readonly style="width:200px;">
                             </div>
-                            
-                            <div class="full-width" style="position:absolute; left:450px;">
-                                <label for="dateInput">Course Date</label>
-                                <input id="courseDate" type="email" name="dateInput" readonly style="width:200px;">
-                            </div>
 
-                            <div class="full-width" style="position:absolute; left: 725px;">
+                            <div class="full-width" style="left: 725px;">
                                 <label for="timeInput">Course Time</label>
                                 <input id="courseTime" type="email" name="timeInput" readonly style="width:200px;">
-                            </div>
+                            </div>   
 
+                            <div class="full-width" style="left: 725px;">
+                                <label for="timeInput">Class ID</label>
+                                <input id="classidvar" type="text" name="cid" readonly style="width:200px;">
+                            </div>                            
                             
-
+                            <h3>Class Photo</h3>
+                            <p><img src="images/face2.jpg" alt=""></p>
                         <br>
                         <br>
 
                         <div class="col-six tab-full">
 
-                <h3>Class Photo</h3>
-                <p><img src="images/face2.jpg" alt=""></p>
+                
 
-            </div>
+                        </div>
+                        <button type="submit" name="submit">UPLOAD</button>
+                        
+                </form>
 
             <div class="col-six tab-full">
 
@@ -431,9 +522,14 @@ $conn->close();
 
                         <label for="exampleMessage">Message</label>
                         <textarea required class="full-width" placeholder="Please indicate your response details here." id="exampleMessage"></textarea>
-                        <input class="btn--primary full-width" type="submit" value="Submit" style="width:400px;">
+                        <!-- <input class="btn--primary full-width" onclick="updateAttendanceQuery()" type="submit" value="Submit" style="width:400px;"> -->
 
-                </form>
+
+
+
+
+                        
+                        
 
             </div>
         </div> <!-- end row -->
@@ -546,33 +642,29 @@ document.addEventListener('mouseover', function() {
 
 
 
-    <script>
-       // var btnSelam=document.getElementById("120");
-	btnSelam.onclick=function moveNumbers(value){
-		window.alert(value);
-        document.getElementsByName('sampleRecipientInput')[0].placeholder='new text for email';
-	}
-    </script>
 
-<script>
-       function moveNumbers(studentid,course,datevar,timevar,facevar) {
+    <script>
+       function moveNumbers(studentvar,course,timevar,classidvar,facevar) {
         
-        var input = document.getElementById ("studentId");
-        input.placeholder = studentid;
+        var input = document.getElementById ("studentCode");
+        input.placeholder = studentvar;
         
         var input = document.getElementById ("courseCode");
         input.placeholder = course;
 
-        var input = document.getElementById ("courseDate");
-        input.placeholder = datevar;
-
         var input = document.getElementById ("courseTime");
         input.placeholder = timevar;
 
+        var input = document.getElementById ("classidvar");
+        input.placeholder = classidvar;
+
         document.getElementById("theImage").src=facevar;
 
-}
+        }
     </script>
+
+
+
 
     <script>
 

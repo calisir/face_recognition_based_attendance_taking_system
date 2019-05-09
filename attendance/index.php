@@ -31,7 +31,7 @@
 </head>
 
 
-<body id="top" style="background-image:url('images/atten.svg');">
+<body id="top" style="background-image:url('images/atten.png');background-size: cover;background-position: center;background-repeat: no-repeat;background-attachment: fixed;">
     
     <!-- preloader
     ================================================== -->
@@ -49,7 +49,7 @@
 
         <div class="header-logo">
             <a class="site-logo" href="index.html">
-                <img src="images/logo.svg" style="width:500px;height:130px;" alt="Homepage">
+                <img src="images/logohome.png" style="width:500px;height:130px;" alt="Homepage">
             </a>
         </div> <!-- end header-logo -->
     </header> <!-- end s-header -->
@@ -72,7 +72,7 @@
                 </h3>
 
                 <div class="home-content__video">
-                    <a class="video-link" href="https://vimeo.com" data-lity>
+                    <a class="video-link" href="videos/sinan.mp4" data-lity>
                         <span class="video-icon"></span>
                         <span class="video-text">Watch Video if you are unsure what to do</span>
                     </a>
@@ -100,11 +100,20 @@
 	</form> -->
 
 
-    <form action="upload.php?name=<?php echo $_GET["name"] ?>" method="POST" enctype="multipart/form-data">
-		<?php echo "Hello ".$_GET["name"]; ?><br>
-		Please select video: <input type="file" name="file"><br>
-		<button type="submit" name="submit">UPLOAD</button>
-	</form>
+
+
+    
+        
+
+
+
+
+
+
+
+
+
+    
 
 
 
@@ -112,6 +121,12 @@
     <!-- about
     ================================================== -->
     <section id="about" class="s-about target-section">
+
+        <form action="upload.php?name=<?php echo $_GET["name"] ?>" method="POST" enctype="multipart/form-data">
+            Please select video: <br>
+            <input  type="file" name="file" style="width: 300px;"><br>
+            <button class="btn btn--primary half-width" type="submit" name="submit">UPLOAD</button>
+        </form>
 
         <div class="row section-header bit-narrow" data-aos="fade-up">
             <div class="col-full">

@@ -1,7 +1,6 @@
 /* =================================================================== 
  *
  *  Sublime v1.0 Main Stylesheet
- *  06-10-2018
  *  ------------------------------------------------------------------
  *
  *  TOC:
@@ -61,7 +60,6 @@
 html {
   font-size: 10px;
 }
-
 @media only screen and (max-width:400px) {
   html {
     font-size: 9.411764705882353px;
@@ -1646,7 +1644,7 @@ body.menu-is-open {
   width: 100%;
   height: 78px;
   background-color: transparent;
-  position: absolute;
+  position: relative;
   top: 21px;
 }
 
@@ -1658,7 +1656,7 @@ body.menu-is-open {
   display: inline-block;
   margin: 0;
   padding: 0;
-  position: absolute;
+  position: relative;
   left: 7.5rem;
   top: 50%;
   -webkit-transform: translateY(-50%);

@@ -56,7 +56,7 @@
 
         <div class="header-logo">
             <a class="site-logo" href="index.html">
-            <img src="images/logo.svg" style="width:500px;height:130px;" alt="Homepage">
+            <img src="images/logohome.png" style="width:500px;height:130px;" alt="Homepage">
             </a>
         </div> <!-- end header-logo -->
     </header> <!-- end s-header -->
