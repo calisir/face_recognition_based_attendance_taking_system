@@ -252,39 +252,6 @@
                             $conn->close();
                     ?>
 
-
-
-
-
-
-
-
-
-
-                            <!-- <thead>
-                            <tr>
-                                <th>Course</th>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Location</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>MAT 120</td>
-                                <td>29.02.2019</td>
-                                <td>08.40-09.40</td>
-                                <td>TZ-20</td>
-                                <td><input id="120" value="Object!" onclick="moveNumbers('MAT 120','29.02.2019','08.40-09.40')" type="button" class="btn btn--primary full-width"></td>
-                            </tr>
-                            <tr>
-                                <td>ENGL 211</td>
-                                <td>28.02.2019</td>
-                                <td>15.40-17.40</td>
-                                <td>S-103</td>
-                                <td><input id="120" value="Object!" onclick="moveNumbers('ENGL 211','28.02.2019','15.40-17.40')" type="button" class="btn btn--primary full-width"></td>
-                            </tr>
-                            </tbody> -->
                     </table>
 
                 </div>
@@ -306,10 +273,12 @@
 
                 <h3>Objection Form</h3>
 
-                <form action="sendobjection.php" method="post" enctype="multipart/form-data">
+
+
+
+                    <form action="sendobjection.php" method="post" enctype="multipart/form-data">
                         <div class="full-width">
                             <label for="sampleInput">Student ID</label>
-                            <!-- <input type="text" id="sid" name ="sid" readonly style="width:200px;"> -->
                             <input type="text" id="sid" name="sid" readonly style="width:200px;">
                         </div>
                             
@@ -335,7 +304,7 @@
 
                         <button type="submit" name="submit">Submit</button>
                         
-                </form>
+                </form> 
 
             </div>
         </div> <!-- end row -->
