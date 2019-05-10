@@ -309,7 +309,7 @@ $conn->close();
         if($allUploaded==1) { ?>
         <!-- <input id="1010" name="train" value="Start Training" type="button" class="btn btn--primary full-width"> -->
         <form method="post">
-            <input type="submit" name="test" id="test" value="RUN" /><br/>
+            <input type="submit" name="test" id="test" value="Start Training" /><br/>
         </form>
         <?php 
         } else { ?>
@@ -456,26 +456,27 @@ $conn->close();
                 <form action="updateattendancequery.php" method="post" enctype="multipart/form-data">
                         <div class="full-width">
                             <label for="sampleInput">Student ID</label>
-                            <input class="full-width" type="text" id="studentCode" readonly style="width:200px;" name ="sid">
+                            <!-- <input type="text" id="sid" name ="sid" readonly style="width:200px;"> -->
+                            <input type="text" id="sid" name="sid" readonly style="width:200px;">
                         </div>
                             
-                            <div class="full-width" style="left:190px;">
-                                <label for="sampleRecipientInput">Course you're responding</label>
-                                <input id="courseCode" type="email" name="codeInput" readonly style="width:200px;">
-                            </div>
+                        <div class="full-width" style="left:190px;">
+                            <label for="sampleRecipientInput">Course you're responding</label>
+                            <input type="text" id="courseCode" name="codeInput" readonly style="width:200px;">
+                        </div>
 
-                            <div class="full-width" style="left: 725px;">
-                                <label for="timeInput">Course Time</label>
-                                <input id="courseTime" type="email" name="timeInput" readonly style="width:200px;">
-                            </div>   
+                        <div class="full-width" style="left: 725px;">
+                            <label for="timeInput">Course Time</label>
+                            <input type="text" id="courseTime" name="timeInput" readonly style="width:200px;">
+                        </div>   
 
-                            <div class="full-width" style="left: 725px;">
-                                <label for="timeInput">Class ID</label>
-                                <input id="classidvar" type="text" name="cid" readonly style="width:200px;">
-                            </div>                            
-                            
-                            <h3>Class Photo</h3>
-                            <p><img src="images/face2.jpg" alt=""></p>
+                        <div class="full-width" style="left: 725px;">
+                            <label for="timeInput">Class ID</label>
+                            <input type="text" id="classidvar" name="cid" readonly style="width:200px;">
+                        </div>                            
+                        
+                        <h3>Class Photo</h3>
+                        <p><img src="images/face2.jpg" alt=""></p>
                         <br>
                         <br>
 
@@ -484,9 +485,7 @@ $conn->close();
                 
 
                         </div>
-                        <button type="submit" name="submit">UPLOAD</button>
                         
-                </form>
 
             <div class="col-six tab-full">
 
@@ -497,22 +496,22 @@ $conn->close();
                 </div>
 
               
-
-                
-                <div class="container">
+                <div class="col-six tab-full">
                     
                     <h2>Is Present ?</h2>
                     
                 <ul>
                 <li>
-                    <input type="radio" id="f-option" name="selector">
+                    <input type="radio" name="present" value="1" id="f-option"/>
+
                     <label for="f-option">Present</label>
                     
                     <div class="check"></div>
                 </li>
                 
                 <li>
-                    <input type="radio" id="s-option" name="selector">
+                    <input type="radio" name="present" value="0" id="s-option"/>
+
                     <label for="s-option" required>Not Present</label>
                     
                     <div class="check"><div class="inside"></div></div>
@@ -520,13 +519,17 @@ $conn->close();
                 </ul>
                 </div>
 
-                        <label for="exampleMessage">Message</label>
+                
+                        <br>
+                        
                         <textarea required class="full-width" placeholder="Please indicate your response details here." id="exampleMessage"></textarea>
                         <!-- <input class="btn--primary full-width" onclick="updateAttendanceQuery()" type="submit" value="Submit" style="width:400px;"> -->
 
 
 
-
+                        <button type="submit" name="submit">Submit</button>
+                        
+                        </form>
 
                         
                         
@@ -646,17 +649,17 @@ document.addEventListener('mouseover', function() {
     <script>
        function moveNumbers(studentvar,course,timevar,classidvar,facevar) {
         
-        var input = document.getElementById ("studentCode");
-        input.placeholder = studentvar;
+        var input = document.getElementById ("sid");
+        input.value = studentvar;
         
         var input = document.getElementById ("courseCode");
-        input.placeholder = course;
+        input.value = course;
 
         var input = document.getElementById ("courseTime");
-        input.placeholder = timevar;
+        input.value = timevar;
 
         var input = document.getElementById ("classidvar");
-        input.placeholder = classidvar;
+        input.value = classidvar;
 
         document.getElementById("theImage").src=facevar;
 

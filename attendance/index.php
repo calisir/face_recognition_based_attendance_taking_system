@@ -59,10 +59,7 @@
     ================================================== -->
     <section id="home" class="s-home page-hero target-section" data-parallax="scroll" data-natural-width=3000 data-natural-height=2000 data-position-y=center>
 
-        <div class="grid-overlay">
-            <div></div>
-        </div>
-
+    
         <div class="home-content">
 
             <div class="row home-content__main">
@@ -89,34 +86,6 @@
     </section> <!-- end s-home -->
 
  
-    <!-- <form action="upload.php?name=<?php echo $_GET["name"] ?>" style="text-align: center;font-size:16pt;" method="POST" enctype="multipart/form-data">
-    <label for="file-upload" class="btn--primary" style="font-size: 45px;">
-    <i class="fa fa-cloud-upload"></i> Please select video:
-    </label>
-    <input id="file-upload" type="file"/>
-        
-
-    <button class="smoothscroll btn btn--primary btn--large" type="submit" style="width: 500px;" name="submit">UPLOAD</button>
-	</form> -->
-
-
-
-
-    
-        
-
-
-
-
-
-
-
-
-
-    
-
-
-
 
     <!-- about
     ================================================== -->
