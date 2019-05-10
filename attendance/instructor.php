@@ -61,7 +61,7 @@
 
             <div class="header-logo">
                     <a class="site-logo" href="index.php">
-                        <img src="images/logo.svg"  style="width:500px;height:130px;" alt="Homepage">
+                        <img src="images/logohome.png"  style="width:500px;height:130px;" alt="Homepage">
                     </a>
             </div> <!-- end header-logo -->
 
@@ -406,13 +406,13 @@ $conn->close();
                         foreach ($row as $index){
                             array_push($copy,$index);
                         }
-                        $field1name = $copy[0];
-                        $field2name = $copy[1];
-                        $field3name = $copy[2];
-                        $field4name = $copy[3];
-                        $field5name = $copy[4];
-                        $field6name = $copy[5];
-                        $field7name = $copy[6];
+                        $field1name = $copy[0]; // Student id
+                        $field2name = $copy[1]; // Student name
+                        $field3name = $copy[2]; // Student surname
+                        $field4name = $copy[3]; // Course name
+                        $field5name = $copy[4]; // Course period
+                        $field6name = $copy[5]; // Classroom name
+                        $field7name = $copy[6]; // Class id
 
                         
 

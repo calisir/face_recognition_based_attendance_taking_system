@@ -101,7 +101,7 @@
             <div class="col-full">
                 <h3 class="subhead">Why do you need to upload your video ?</h3>
                 <h1 class="display-1">
-                In order the cameras based in the classes to recognize, every student has to upload a video that shows his/her face clearly.
+                In order for the cameras in the classes to recognize you, every student has to upload a video that shows his/her face clearly.
                 </h1>
             </div>
         </div> <!-- end section-header -->

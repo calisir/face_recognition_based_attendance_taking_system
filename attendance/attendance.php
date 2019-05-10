@@ -56,13 +56,32 @@
 
             <div class="header-logo">
                     <a class="site-logo" href="index.php">
-                        <img src="images/logo.svg"  style="width:500px;height:130px;" alt="Homepage">
+                        <img src="images/logohome.png"  style="width:500px;height:130px;" alt="Homepage">
                     </a>
             </div> <!-- end header-logo -->
 
             <div style="margin-left:1200px;">
+            <?php
+                $studentid = isset($_GET['id']) ? $_GET['id'] : '';
+                
+            ?>
+            
             <ul class="nav">
-                  <li><a><b><i class="icon-user icon-white"></i>admin</a></b></li>
+            <li>
+                <a><b>
+                    <i class="icon-user icon-white"></i>
+                    <?php 
+                    if($studentid != null)
+                    {
+                        echo $studentid;
+                    }
+                    else{
+                        echo "Please sign with your userid";
+                    }
+                    ?>
+                </a></b>
+            </li>
+                
             </ul>
             </div>
             
@@ -169,7 +188,80 @@
                 <div class="table-responsive">
 
                     <table>
-                            <thead>
+
+
+                        <?php
+                            $servername = "127.0.0.1:3307";
+                            $username = "root";
+                            $password = "";
+                            $dbname = "attendance";
+
+                            
+
+                            // Create connection
+                            $conn = new mysqli($servername, $username, $password, $dbname);
+                            // Check connection
+                            if ($conn->connect_error) {
+                                die("Connection failed: " . $conn->connect_error);
+                            } 
+
+                            $sql = "SELECT student.id,student.name AS sname ,student.surname,course.name AS cname,period.start,classroom.name, class.id AS classid FROM attendance, student, class, period, course, classroom WHERE attendance.student=student.id AND attendance.class = class.id AND attendance.present=0 AND class.course = course.id AND class.period = period.id AND class.classroom = classroom.id AND student.id = $studentid;";
+
+                            $result = $conn->query($sql);
+
+
+                            echo '<table border="0" cellspacing="2" cellpadding="2"> 
+                                <tr> 
+                                    <th>Course Name</th>
+                                    <th>Course Time</th>
+                                    <th>Course Location</th>
+                                </tr>';
+                            $imageVariable='images/newface.jpg';
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+
+                                    $copy = [];
+
+                                    foreach ($row as $index){
+                                        array_push($copy,$index);
+                                    }
+                                    $field1name = $copy[0]; // Student id
+                                    $field2name = $copy[1]; // Student name
+                                    $field3name = $copy[2]; // Student surname
+                                    $field4name = $copy[3]; // Course name
+                                    $field5name = $copy[4]; // Course period
+                                    $field6name = $copy[5]; // Classroom name
+                                    $field7name = $copy[6]; // Class id
+
+                                    
+
+
+                                    echo '<tr> 
+                                            <td>'.$field4name.'</td>
+                                            <td>'.$field5name.'</td> 
+                                            <td>'.$field6name.'</td>
+                                            <td>
+                                            <input id="120" value="Respond!" onclick="moveNumbers(\''.$field1name.'\',\''.$field4name.'\',\''.$field5name.'\',\''.$field7name.'\')" type="button" class="btn btn--primary full-width">
+                                            </td>
+
+                                        </tr>';
+                                }
+                                $result->free();
+                            } 
+
+                            $conn->close();
+                    ?>
+
+
+
+
+
+
+
+
+
+
+                            <!-- <thead>
                             <tr>
                                 <th>Course</th>
                                 <th>Date</th>
@@ -192,7 +284,7 @@
                                 <td>S-103</td>
                                 <td><input id="120" value="Object!" onclick="moveNumbers('ENGL 211','28.02.2019','15.40-17.40')" type="button" class="btn btn--primary full-width"></td>
                             </tr>
-                            </tbody>
+                            </tbody> -->
                     </table>
 
                 </div>
@@ -214,37 +306,35 @@
 
                 <h3>Objection Form</h3>
 
-                <form>
-                        <div>
+                <form action="sendobjection.php" method="post" enctype="multipart/form-data">
+                        <div class="full-width">
                             <label for="sampleInput">Student ID</label>
-                            <input class="full-width" type="email" placeholder="e202020" id="sampleInput" readonly style="width:200px;">
-                    </div>
-                            <div class="full-width" style="position:absolute; left:190px;">
-                                <label for="sampleRecipientInput">Course you're objecting</label>
-                                <input id="courseCode" type="email" name="codeInput" readonly style="width:200px;">
-                            </div>
+                            <!-- <input type="text" id="sid" name ="sid" readonly style="width:200px;"> -->
+                            <input type="text" id="sid" name="sid" readonly style="width:200px;">
+                        </div>
                             
-                            <div class="full-width" style="position:absolute; left:450px;">
-                                <label for="dateInput">Course Date</label>
-                                <input id="courseDate" type="email" name="dateInput" readonly style="width:200px;">
-                            </div>
+                        <div class="full-width" style="left:190px;">
+                            <label for="sampleRecipientInput">Course you're objecting</label>
+                            <input type="text" id="courseCode" name="codeInput" readonly style="width:200px;">
+                        </div>
 
-                            <div class="full-width" style="position:absolute; left: 725px;">
-                                <label for="timeInput">Course Time</label>
-                                <input id="courseTime" type="email" name="timeInput" readonly style="width:200px;">
-                            </div>
-                
+                        <div class="full-width" style="left: 725px;">
+                            <label for="timeInput">Course Time</label>
+                            <input type="text" id="courseTime" name="timeInput" readonly style="width:200px;">
+                        </div>   
 
-                        <br>
-                        <br>
-                        <br>
-                        <br>
-                        <br>
+                        <div class="full-width" style="left: 725px;">
+                            <label for="timeInput">Class ID</label>
+                            <input type="text" id="classidvar" name="cid" readonly style="width:200px;">
+                        </div>                            
+                        
+                        
+                        <textarea required class="full-width" placeholder="Please indicate your response details here." id="exampleMessage"></textarea>
 
-                        <label for="exampleMessage">Message</label>
-                        <textarea required class="full-width" placeholder="Please indicate time,date and reason for you objection." id="exampleMessage"></textarea>
-                        <input class="btn--primary full-width" type="submit" value="Submit" style="width:400px;">
 
+
+                        <button type="submit" name="submit">Submit</button>
+                        
                 </form>
 
             </div>
@@ -328,16 +418,18 @@
     </script>
 
 <script>
-       function moveNumbers(course,datevar,timevar) {
+       function moveNumbers(studentvar,course,timevar,classidvar,facevar) {
+        var input = document.getElementById ("sid");
+        input.value = studentvar;
+        
         var input = document.getElementById ("courseCode");
-        input.placeholder = course;
-
-        var input = document.getElementById ("courseDate");
-        input.placeholder = datevar;
+        input.value = course;
 
         var input = document.getElementById ("courseTime");
-        input.placeholder = timevar;
+        input.value = timevar;
 
+        var input = document.getElementById ("classidvar");
+        input.value = classidvar;
 
 }
     </script>
