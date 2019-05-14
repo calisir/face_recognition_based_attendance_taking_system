@@ -1,3 +1,5 @@
+# python ok2.py --dataset C:\xampp\htdocs\attendance\videos\cng492dataset --encodings C:\\xampp\\htdocs\\attendance\\videos\\cng492model\\cng492
+
 from imutils import paths
 import face_recognition
 import argparse
@@ -30,8 +32,9 @@ for (i, imagePath) in enumerate(imagePaths):
 		knownNames.append(name)
 
 
-folder = args["encodings"].split("/")[:-1]
-folder = '/'.join(folder)
+folder = args["encodings"].split("\\")[:-1]
+folder = "\\".join(folder)
+print ("x:" + folder)
 if not os.path.exists(folder):
     os.makedirs(folder)
 

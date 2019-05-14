@@ -53,7 +53,8 @@
     <!-- header
     ================================================== -->
     <header class="s-header">
-
+            <br>
+            <br>
             <div class="header-logo">
                     <a class="site-logo" href="index.php">
                         <img src="images/logohome.png"  style="width:500px;height:130px;" alt="Homepage">
@@ -114,11 +115,14 @@
     <br>
 
 
-    <div class="col-six tab-full">
+    <!-- <div class="col-six tab-full">
         <h3>Attendance Progress</h3>
         <h5>This section shows how much attendance you've covered so far.</h5>
         <mark>red indicates failed threshold for attendance</mark>
         <ul class="skill-bars">
+             
+
+
             <li>
             <div class="progress percent90"><span>90%</span></div>
             <strong>MAT 120</strong>
@@ -141,7 +145,7 @@
             </li>
         </ul>
 
-    </div>
+    </div> -->
 
 </div> <!-- end row -->
 
@@ -155,25 +159,103 @@
 
             <ul class="stats-tabs">
                 <li>
-                <a>4<em>MAT 120</em></a>
-                <a>5<em>EEE 281</em></a>
-                <a>2<em>CNG 213</em></a>
-                <a>3 <em>CNG 223</em></a>
-                <a>14 <em>ENGL 211</em></a>
+                    <?php
+                        $servername = "127.0.0.1:3307";
+                        $username = "root";
+                        $password = "";
+                        $dbname = "attendance";
+
+                        // Create connection
+                        $conn = new mysqli($servername, $username, $password, $dbname);
+                        // Check connection
+                        if ($conn->connect_error) {
+                            die("Connection failed: " . $conn->connect_error);
+                        } 
+
+                        $sql = "select count(present) as 'missedHours',course.name as cid from attendance,class,course where attendance.present=0 and attendance.student=$studentid and attendance.class=class.id and class.course = course.id;";
+                        $result = $conn->query($sql);
+
+                        
+                        if ($result->num_rows > 0) {
+                            while ($row = $result->fetch_assoc()) {
+                                $field1name = $row["missedHours"];
+                                $field2name = $row["cid"];
+                                $missedHours=$field1name;
+                                echo '<ul> 
+                                        <a>'.$field1name.'</a> 
+                                        <em>'.$field2name.'</em>
+                                    </ul>';
+                            }
+                            $result->free();
+                        } 
+
+                        $conn->close();
+                    ?>
+
+
+
+
+
+                <!-- select count(present) as "missedHours",class.course from attendance,class where attendance.present=0 and attendance.student=102 and attendance.class=class.id; -->
+
                 </li>
             </ul>
 
-            <h4>Remaining Hours</h4>
+            <h4>Remaining Hours/Percentage</h4>
 
             <ul class="stats-tabs">
                 <li>
-                <a style="color: rgb(0,255,0)">10<em>MAT 120</em></a>
+                    <?php
+                            $servername = "127.0.0.1:3307";
+                            $username = "root";
+                            $password = "";
+                            $dbname = "attendance";
+
+                            // Create connection
+                            $conn = new mysqli($servername, $username, $password, $dbname);
+                            // Check connection
+                            if ($conn->connect_error) {
+                                die("Connection failed: " . $conn->connect_error);
+                            } 
+
+                            $sql = "select course.name as cid,count(class.period)*14 as totalHour from attendance,class,course where attendance.student=101 and attendance.class=class.id and class.course = course.id;";
+                            $result = $conn->query($sql);
+
+                            if ($result->num_rows > 0) {
+                                while ($row = $result->fetch_assoc()) {
+                                    $field1name = $row["cid"];
+                                    $field2name = $row["totalHour"];
+                                    $leftHour = $field2name - $missedHours;
+
+                                    $perc = ($leftHour-$missedHours) / $leftHour *100;
+                                    echo '<ul> 
+                                            <em>'.$field1name.'</em> 
+                                            <a>'.$leftHour.'</a>
+                                            <a> / </a>
+                                            <a>    % '.round($perc).'</a> 
+                                            
+
+                                        </ul>';
+                                }
+                                $result->free();
+                            } 
+
+                            $conn->close();
+                        ?>
+                        
+
+
+                <!-- <a style="color: rgb(0,255,0)">10<em>MAT 120</em></a>
                 <a style="color: rgb(0,255,0)">9<em>EEE 281</em></a>
                 <a style="color: rgb(0,255,0)">7<em>CNG 213</em></a>
                 <a style="color: rgb(0,255,0)">10<em>CNG 223</em></a>
-                <a style="color: rgb(255,0,0)">0<em>ENGL 211</em></a>
+                <a style="color: rgb(255,0,0)">0<em>ENGL 211</em></a> -->
             </li>
             </ul>
+
+
+
+            
         </div>
     </div> <!-- end row -->
 

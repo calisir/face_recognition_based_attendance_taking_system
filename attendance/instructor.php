@@ -58,7 +58,7 @@
     <!-- header
     ================================================== -->
     <header class="s-header">
-
+            <br><br>
             <div class="header-logo">
                     <a class="site-logo" href="index.php">
                         <img src="images/logohome.png"  style="width:500px;height:130px;" alt="Homepage">
@@ -189,9 +189,59 @@
 
     <h3 id="students">Students</h3>
     <p>List of students enrolled.</p>
+    <form name="add" method="post">
+        <select name="taskOption">
+            <?php
+            $servername = "127.0.0.1:3307";
+            $username = "root";
+            $password = "";
+            $dbname = "attendance";
+
+            // Create connection
+            $conn = new mysqli($servername, $username, $password, $dbname);
+            // Check connection
+            if ($conn->connect_error) {
+                die("Connection failed: " . $conn->connect_error);
+            } 
+
+            $sql = "SELECT id,name FROM course";
+            $result = $conn->query($sql);
+
+            // echo '<table border="0" cellspacing="2" cellpadding="2"> 
+            //     <tr> 
+            //         <th>Student ID</th>
+            //         <th>Name</th>
+            //     </tr>';
+            
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $field1name = $row["id"];
+                    $field2name = $row["name"];
+
+                    echo '
+                        <option value='.$field1name.'>'.$field2name.'</option>
+                        ';
+                }
+                $result->free();
+            }
+            
+
+            $conn->close();
+            ?>
+            
+        </select>
+        <input type='submit' value="Choose Course" name='submit'/>
+    </form>
+    
+
+    
 
     
     <?php
+
+    $selectOption = $_POST['taskOption'];
+    //echo $selectOption;
+
     //$command = escapeshellcmd('python C:\xampp\htdocs\attendance\videos\folder\test.py');
     //$output = shell_exec('python C:\xampp\htdocs\attendance\videos\folder\test.py');
     //echo "$output"; 
@@ -213,7 +263,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-$sql = "SELECT id, name, surname,videoStatus FROM student";
+$sql = "SELECT student.id, student.name, student.surname,student.videoStatus FROM student,enrolled where course=$selectOption and student.id=enrolled.student;";
 $result = $conn->query($sql);
 
 

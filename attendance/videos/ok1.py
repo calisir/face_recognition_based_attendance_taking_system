@@ -2,6 +2,8 @@
 # output: dataset for a class
 # ex/ python splitVideos_augmente.py -f cng492Videos -cng492Dataset
 
+# 
+
 
 
 import os

@@ -22,11 +22,9 @@
         $sql = "insert into objection(student,class) values($sid,$cid);";
         $result = $conn->query($sql);
         
- 
-
         $conn->close();
     }
 
-    header("Location: /attendance/instructor.php"); /* Redirect browser */
+    header("Location: /attendance/attendance.php"); /* Redirect browser */
     exit();
 ?>
