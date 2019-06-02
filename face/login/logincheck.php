@@ -32,8 +32,14 @@
                     $_SESSION['login_user'] = $row["id"]; // Initializing Session 
                     $_SESSION['user_name'] = $row["name"]; // Initializing Session
                     $_SESSION['user_surname'] = $row["surname"]; // Initializing Session
-                    $_SESSION['user_type'] = "instructor";    
-                    header("location: instructor.php"); // Redirecting To Instructor Page
+                    if ($_SESSION['login_user']){
+                        $_SESSION['user_type'] = "instructor";    
+                        header("location: instructor.php"); // Redirecting To Instructor Page
+                    }
+                    else{
+                        $_SESSION['user_type'] = "admin";    
+                        header("location: admin.php"); // Redirecting To Instructor Page                        
+                    }
                 } else {
                     $error = "Username or Password is invalid";                    
                 }

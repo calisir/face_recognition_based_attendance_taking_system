@@ -72,6 +72,8 @@
                     
                     include('session.php');
 
+
+
                     if($_SESSION['user_type'] != "instructor"){
                         header("location: login/coollogin.php");
                     }
@@ -79,6 +81,10 @@
                     if($LOGGED_USER != null)
                     {
                         echo $LOGGED_NAME." ".$LOGGED_SURNAME;
+
+                        if(isset($_POST['taskOption'])){
+                            $selectOption = $_POST['taskOption'];
+                        }
                     }
                     else{
                         echo "Please sign with your userid";
@@ -219,7 +225,7 @@
     <h3 id="students">Students</h3>
     <p>List of students enrolled.</p>
     <form name="add" method="post">
-        <select name="taskOption">
+        <select name="taskOption" style="color:black">
             <?php
             $servername = "127.0.0.1:3307";
             $username = "root";
@@ -262,7 +268,7 @@
             ?>
             
         </select>
-        <input type='submit' value="Choose Course" name='submit'/>
+        <input type='submit' value="Choose Course" name='selectCourse'/>
     </form>
     
 
@@ -270,9 +276,9 @@
 
     
     <?php
-    if(isset($_POST['taskOption'])){
-        $selectOption = $_POST['taskOption'];
-    }
+    //if(isset($_POST['taskOption'])){
+    //    $selectOption = $_POST['taskOption'];
+    //}
     //echo $selectOption;
 
     //$command = escapeshellcmd('python C:\xampp\htdocs\attendance\videos\folder\test.py');
@@ -287,7 +293,7 @@ $username = "root";
 $password = "";
 $dbname = "attendance";
 
-$allUploaded=0;
+$allUploaded=1;
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -316,9 +322,9 @@ if(isset($selectOption))
             $field3name = $row["surname"];
             $field4name = $row["videoStatus"];
             
-            if($field4name==1){
+            if($field4name==0){
                 //echo $field4name;
-                $allUploaded=1;
+                $allUploaded=0;
             }
             echo '<tr> 
                     <td>'.$field1name.'</td> 
@@ -328,6 +334,8 @@ if(isset($selectOption))
                 </tr>';
         }
         $result->free();
+    } else {
+        $allUploaded=0;
     } 
 }
 
@@ -401,6 +409,7 @@ $conn->close();
 
         
         <form action="theSamePage.php" method="post">
+            <input type="hidden" id="selCourse" name="selCourse" value="<?php echo $selectOption ?>">
             <input type="submit" name="someAction" value="GO" />
         </form>
 
@@ -467,11 +476,6 @@ $conn->close();
                 <h3>Objections waiting</h3>
                 <p>Objections made by students.</p>
 
-
-
-
-                
-
                 <div class="table-responsive">
 
                 <table>
@@ -491,11 +495,10 @@ $conn->close();
                     die("Connection failed: " . $conn->connect_error);
                 } 
 
-                $sql = "SELECT student.id,student.name AS sname ,student.surname,course.name AS cname,period.start,classroom.name, class.id AS classid 
+                $sql = "SELECT student.id AS sid,student.name AS sname ,student.surname AS ssname,course.name AS cname,period.start AS pstart,classroom.name AS crname, class.id AS classid, objection.date AS odate, course.id AS cid
                         FROM objection, student, class, period, course, classroom, enrolled 
-                        WHERE objection.student = student.id AND objection.class = class.id AND class.course = course.id AND class.period = period.id AND class.classroom = classroom.id AND EXISTS(SELECT * FROM course WHERE instructor =".$LOGGED_USER." AND id=enrolled.course);";
+                        WHERE objection.student = student.id AND objection.class = class.id AND class.course = course.id AND class.period = period.id AND class.classroom = classroom.id AND enrolled.student = student.id AND enrolled.course = course.id AND EXISTS(SELECT * FROM course WHERE instructor =".$LOGGED_USER." AND course.id=enrolled.course);";
                 $result = $conn->query($sql);
-
 
                 echo '<table border="0" cellspacing="2" cellpadding="2"> 
                     <tr> 
@@ -509,27 +512,37 @@ $conn->close();
                 if ($result->num_rows > 0) {
                     while ($row = $result->fetch_assoc()) {
 
-                        $copy = [];
+                        $field1name = $row["sid"]; // Student id
+                        $field2name = $row["sname"]; // Student name
+                        $field3name = $row["ssname"]; // Student surname
+                        $field4name = $row["cname"]; // Course name
+                        $field5name = $row["pstart"]; // Course period
+                        $field6name = $row["crname"]; // Classroom name
+                        $field7name = $row["classid"]; // Class id
+                        $field8name = $row["odate"]; // Date
+                        $field9name = $row["cid"]; // Course id
 
-                        foreach ($row as $index){
-                            array_push($copy,$index);
-                        }
-                        $field1name = $copy[0]; // Student id
-                        $field2name = $copy[1]; // Student name
-                        $field3name = $copy[2]; // Student surname
-                        $field4name = $copy[3]; // Course name
-                        $field5name = $copy[4]; // Course period
-                        $field6name = $copy[5]; // Classroom name
-                        $field7name = $copy[6]; // Class id
-
-                        $somename =  $_SESSION['login_user'];
+                        $field5name = str_replace(":","-",$field5name);
+                        $field8name = str_replace(":","-",$field8name);
+                        
+                        try {
+                            $dir = "snapshots/$field8name/$field9name/$field5name";
+                            $files = scandir($dir);
                             
-                        // Check to see if session is correct
+                            if(isset($files)){
+                                $classphoto = $dir."/".$files[3];
+                            }
+                            else{
+                                $classphoto = "images/face2.jpeg";
+                            }
+                        } catch (Exception $e){
+                            $classphoto = "images/face2.jpeg";
+                        }
+
                         //echo '<script language="javascript">';
-                        //echo "alert('$somename')";
+                        //echo "alert('$files')";
                         //echo '</script>';
 
-                        
 
 
                         echo '<tr> 
@@ -539,7 +552,7 @@ $conn->close();
                                 <td>'.$field5name.'</td>
                                 <td>'.$field6name.'</td>
                                 <td>
-                                    <input id="120" value="Respond!" onclick="moveNumbers(\''.$field1name.'\',\''.$field4name.'\',\''.$field5name.'\',\''.$field7name.'\',\''.$imageVariable.'\')" type="button" class="btn btn--primary full-width">
+                                    <input id="120" value="Respond!" onclick="moveNumbers(\''.$field1name.'\',\''.$field4name.'\',\''.$field5name.'\',\''.$field7name.'\',\''.$classphoto.'\',\''.$field9name.'\')" type="button" class="btn btn--primary full-width">
                                 </td>
 
                             </tr>';
@@ -591,7 +604,15 @@ $conn->close();
                         </div>                            
                         
                         <h3>Class Photo</h3>
-                        <p><img src="images/face2.jpg" alt=""></p>
+                        <!-- Slideshow container -->
+                            <div class="slideshow-container">
+
+                            <!-- Full-width images with number and caption text -->
+                            <p><img src="images/face2.jpg" alt="" id="classphoto"></p>
+
+                            </div>
+                            
+                            
                         <br>
                         <br>
 
@@ -605,16 +626,12 @@ $conn->close();
             <div class="col-six tab-full">
 
                 <h3>Student Photo</h3>
-                <p><img id="theImage" src="images/face.jpg" width="200" height="40"></p>
-
-            
+                    <p><img id="theImage" src="images/face.jpg" width="200" height="40"></p>            
                 </div>
 
               
-                <div class="col-six tab-full">
-                    
-                    <h2>Is Present ?</h2>
-                    
+                <div class="col-six tab-full">                    
+                    <h2>Is Present ?</h2>                    
                 <ul>
                 <li>
                     <input type="radio" name="present" value="1" id="f-option"/>
@@ -743,17 +760,17 @@ function demo2() {
 }
 
 function reset() {
-   count = 1
-   var hovers = document.querySelectorAll('.hover')
-   for(var i = 0; i < hovers.length; i++ ) {
+    count = 1
+    var hovers = document.querySelectorAll('.hover')
+    for(var i = 0; i < hovers.length; i++ ) {
       hovers[i].classList.remove('hover')
-   }
-}
+    }
+    }
 
-document.addEventListener('mouseover', function() {
-   mousein = true
-   reset()
-})
+    document.addEventListener('mouseover', function() {
+    mousein = true
+    reset()
+    })
 
 
     </script>
@@ -762,7 +779,7 @@ document.addEventListener('mouseover', function() {
 
 
     <script>
-       function moveNumbers(studentvar,course,timevar,classidvar,facevar) {
+       function moveNumbers(studentvar,course,timevar,classidvar,classphoto,facephoto) {
         
         var input = document.getElementById ("sid");
         input.value = studentvar;
@@ -774,9 +791,11 @@ document.addEventListener('mouseover', function() {
         input.value = timevar;
 
         var input = document.getElementById ("classidvar");
-        input.value = classidvar;
+        input.value = classidvar;       
 
-        document.getElementById("theImage").src=facevar;
+        document.getElementById("classphoto").src = classphoto;
+
+        document.getElementById("theImage").src= "videos/students/" + studentvar + ".png";
 
         }
     </script>

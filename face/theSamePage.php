@@ -1,8 +1,17 @@
 <?php
-    //echo exec("C:/Python37/python3.exe C:/xampp/htdocs/face/videos/ok1.py -f C:/xampp/htdocs/face/videos/cng492 -o C:/xampp/htdocs/face/videos/cng492dataset");
-    //echo exec("C:/Python37/python3.exe C:/xampp/htdocs/face/videos/ok2.py --dataset C:/xampp/htdocs/face/videos/cng492dataset --encodings C:/xampp/htdocs/face/videos/cng492model/cng492");
-    echo shell_exec("C:/Python37/python3.exe C:/xampp/htdocs/face/videos/ok0.py -i C:/xampp/htdocs/face/videos/cng492dataset/alper/301810_alper.jpg -e C:/xampp/htdocs/face/videos/cng492model/eleven");
-    //echo shell_exec("C:/Python37/python3.exe C:/xampp/htdocs/face/videos/ok3.py --image C:/xampp/htdocs/face/videos/demo.png");
+    // Train kısmı
+    ini_set('max_execution_time', 30000000000);
+    if(isset($_POST["selCourse"])){
+        $course = $_POST["selCourse"];
+        echo exec("C:/Python37/python3.exe C:/xampp/htdocs/face/videos/ok1.py -f C:/xampp/htdocs/face/videos/courses/$course -o C:/xampp/htdocs/face/videos/dataset/$course");
+        echo exec("C:/Python37/python3.exe C:/xampp/htdocs/face/videos/ok2.py --dataset C:/xampp/htdocs/face/videos/dataset/$course --encodings C:/xampp/htdocs/face/videos/models/$course");
+    }
+    header("location: instructor.php");
+
+    // Detection kısmı
+    //echo shell_exec("C:/Python37/python3.exe C:/xampp/htdocs/face/videos/ok0.py -i C:/xampp/htdocs/face/videos/cng492dataset/alper/301810_alper.jpg -e C:/xampp/htdocs/face/videos/cng492model/eleven");
+    //echo shell_exec("C:/Python37/python3.exe C:/xampp/htdocs/face/videos/ok0.py -i C:/xampp/htdocs/face/videos/raspberrydengelecek.jpg -e C:/xampp/htdocs/face/videos/models/dersadi");
+
 
 
             // if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['someAction']))

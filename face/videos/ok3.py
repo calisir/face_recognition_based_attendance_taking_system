@@ -1,4 +1,6 @@
 # python3 saveFaces.py --image 4.png
+# Windows : C:/Python37/python3.exe C:/xampp/htdocs/face/videos/ok3.py --image C:/xampp/htdocs/face/videos/demo.png
+
 import os
 import cv2
 import sys
@@ -21,7 +23,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--model-cfg', type=str, default='C:\\xampp\\htdocs\\face\\videos\\yolov3-face.cfg')
 parser.add_argument('--model-weights', type=str, default='C:\\xampp\\htdocs\\face\\videos\\yolov3.weights')
 parser.add_argument('--image', type=str, default='')
-parser.add_argument('--output', type=str, default='C:\\xampp\\htdocs\\face\\videos\\outputs')
+parser.add_argument('--output', type=str, default='')
 args = parser.parse_args()
 net = cv2.dnn.readNetFromDarknet(args.model_cfg, args.model_weights)
 
@@ -31,6 +33,8 @@ net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)
 c = 1
 def saveCroppedImage(frame):
     global c
+    if not os.path.exists(args.output):
+        os.makedirs(args.output)
     cv2.imwrite(args.output + str(c) + ".jpg", frame)
     c += 1
 
@@ -108,7 +112,6 @@ def main():
         if not has_frame:
             cv2.waitKey(1000)
             break
-        print("8")
         blob = cv2.dnn.blobFromImage(frame, 1 / 255, (IMG_WIDTH, IMG_HEIGHT), [0, 0, 0], 1, crop=False)
         net.setInput(blob)
         outs = net.forward(get_outputs_names(net))

@@ -28,6 +28,11 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
+    <?php
+        include('session.php');
+    ?>
+
+
 </head>
 
 
@@ -48,7 +53,7 @@
     <header class="s-header">
 
         <div class="header-logo">
-            <a class="site-logo" href="index.html">
+            <a class="site-logo" href="login.php">
                 <img src="images/logohome.png" style="width:500px;height:130px;" alt="Homepage">
             </a>
         </div> <!-- end header-logo -->
@@ -91,7 +96,7 @@
     ================================================== -->
     <section id="about" class="s-about target-section">
 
-        <form action="upload.php?name=<?php echo $_GET["name"] ?>" method="POST" enctype="multipart/form-data">
+        <form action="upload.php" method="POST" enctype="multipart/form-data">
             Please select video: <br>
             <input  type="file" name="file" style="width: 300px;"><br>
             <button class="btn btn--primary half-width" type="submit" name="submit">UPLOAD</button>

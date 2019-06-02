@@ -64,26 +64,27 @@
             <div style="margin-left:1200px;">            
             
             <ul class="nav">
-            <li>
-                <a><b>
-                    <i class="icon-user icon-white"></i>
-                    <?php 
-                    include('session.php');
+                <li>
+                    <a><b>
+                        <i class="icon-user icon-white"></i>
+                        <?php 
+                        include('session.php');
 
-                    if($_SESSION['user_type'] != "student"){
-                        header("location: login/coollogin.php");
-                    }
-                    if($LOGGED_USER != null)
-                    {   
-                        echo $LOGGED_NAME." ".$LOGGED_SURNAME;
-                    }
-                    else{
-                        echo "Please sign with your userid";
-                    }
-                    ?>
-                </a></b>
-            </li>
-            <b id="logout"><a href="logout.php">Log Out</a></b>
+                        if($_SESSION['user_type'] != "student"){
+                            header("location: login/coollogin.php");
+                        }
+                        if($LOGGED_USER != null)
+                        {   
+                            echo $LOGGED_NAME." ".$LOGGED_SURNAME;
+                        }
+                        else{
+                            echo "Please sign with your userid";
+                        }
+                        ?>
+                    </a></b>
+                </li>
+                <b id="upload"><a href="index.php">Upload Video</a></b><br>
+                <b id="logout"><a href="logout.php">Log Out</a></b>                
             </ul>
             </div>
             
@@ -186,13 +187,15 @@
                                 $field1name = $row["missedHours"];
                                 $field2name = $row["cid"];
                                 $missedHours=$field1name;
-                                echo $missedHours;
-                                // echo '<ul> 
-                                //         <a>'.$field1name.'</a> 
-                                //         <em>'.$field2name.'</em>
-                                //     </ul>';
+                                echo '<ul> 
+                                        <a>'.$field1name.'</a> 
+                                        <em>'.$field2name.'</em>
+                                     </ul>';
                             }
                             $result->free();
+                        } else{
+                            $missedHours = 0;
+                            echo $missedHours;
                         } 
 
                         $conn->close();
@@ -207,7 +210,7 @@
                 </li>
             </ul>
 
-            <h4>Remaining Hours/Percentage</h4>
+            <h4>Percentage</h4>
 
             <ul class="stats-tabs">
                 <li>
@@ -224,7 +227,11 @@
                                 die("Connection failed: " . $conn->connect_error);
                             } 
 
-                            $sql = "select course.name as cid,count(class.period)*14 as totalHour from attendance,class,course where attendance.student=$LOGGED_USER and attendance.class=class.id and class.course = course.id GROUP BY course;";
+                            $sql = "SELECT course.name AS cid,count(class.period)*14 AS totalHour 
+                            FROM attendance,class,course 
+                            WHERE attendance.student=$LOGGED_USER AND attendance.class=class.id AND class.course = course.id 
+                            GROUP BY course;";                
+
                             $result = $conn->query($sql);
 
                             if ($result->num_rows > 0) {
@@ -234,17 +241,15 @@
                                     $leftHour = $field2name - $missedHours;
 
                                     $perc = ($leftHour-$missedHours) / $leftHour *100;
-                                    // echo '<ul> 
-                                    //         <em>'.$field1name.'</em> 
-                                    //         <a>'.$leftHour.'</a>
-                                    //         <a> / </a>
-                                    //         <a>    % '.round($perc).'</a> 
-                                            
-
-                                    //     </ul>';
+                                    echo '<ul> 
+                                            <em>'.$field1name.'</em> 
+                                            <a>'.$leftHour.'</a>
+                                            <a> / </a>
+                                            <a>    % '.round($perc).'</a> 
+                                        </ul>';
                                 }
                                 $result->free();
-                            } 
+                            }
 
                             $conn->close();
                         ?>
@@ -293,7 +298,7 @@
                                 die("Connection failed: " . $conn->connect_error);
                             } 
 
-                            $sql = "SELECT student.id,student.name AS sname ,student.surname,course.name AS cname,period.start,classroom.name, class.id AS classid FROM attendance, student, class, period, course, classroom WHERE attendance.student=student.id AND attendance.class = class.id AND attendance.present=0 AND class.course = course.id AND class.period = period.id AND class.classroom = classroom.id AND student.id = $LOGGED_USER;";
+                            $sql = "SELECT student.id,student.name AS sname ,student.surname,course.name AS cname,period.start,classroom.name, class.id AS classid, attendance.date AS cdate FROM attendance, student, class, period, course, classroom WHERE attendance.student=student.id AND attendance.class = class.id AND attendance.present=0 AND class.course = course.id AND class.period = period.id AND class.classroom = classroom.id AND student.id = $LOGGED_USER;";
 
                             $result = $conn->query($sql);
 
@@ -320,6 +325,7 @@
                                     $field5name = $copy[4]; // Course period
                                     $field6name = $copy[5]; // Classroom name
                                     $field7name = $copy[6]; // Class id
+                                    $field8name = $copy[7]; // Class date
 
                                     
 
@@ -329,7 +335,7 @@
                                             <td>'.$field5name.'</td> 
                                             <td>'.$field6name.'</td>
                                             <td>
-                                            <input id="120" value="Respond!" onclick="moveNumbers(\''.$field1name.'\',\''.$field4name.'\',\''.$field5name.'\',\''.$field7name.'\')" type="button" class="btn btn--primary full-width">
+                                            <input id="120" value="Object!" onclick="moveNumbers(\''.$field1name.'\',\''.$field4name.'\',\''.$field5name.'\',\''.$field7name.'\',\''.$field8name.'\')" type="button" class="btn btn--primary full-width">
                                             </td>
 
                                         </tr>';
@@ -383,9 +389,11 @@
                         <div class="full-width" style="left: 725px;">
                             <label for="timeInput">Class ID</label>
                             <input type="text" id="classidvar" name="cid" readonly style="width:200px;">
-                        </div>                            
+                        </div>
+
+                        <input type="hidden" id="classDate" name="classDate">   
                         
-                        
+
                         <textarea required class="full-width" placeholder="Please indicate your response details here." id="exampleMessage"></textarea>
 
 
@@ -475,7 +483,7 @@
     </script>
 
 <script>
-       function moveNumbers(studentvar,course,timevar,classidvar,facevar) {
+       function moveNumbers(studentvar,course,timevar,classidvar,cdate) {
         var input = document.getElementById ("sid");
         input.value = studentvar;
         
@@ -487,6 +495,9 @@
 
         var input = document.getElementById ("classidvar");
         input.value = classidvar;
+
+        var input = document.getElementById ("classDate");
+        input.value = cdate;
 
 }
     </script>

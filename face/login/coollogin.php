@@ -8,7 +8,10 @@ if(isset($_SESSION['login_user']) && isset($_SESSION['user_type'])){
         header("location: ../attendance.php");
     } else if($_SESSION['user_type'] == "instructor"){
         header("location: ../instructor.php");
-    }
+	} else if($_SESSION['user_type'] == "admin"){
+        header("location: ../admin.php");
+	}
+	
 }
 ?>
 

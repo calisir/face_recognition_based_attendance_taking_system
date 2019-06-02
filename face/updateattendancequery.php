@@ -30,6 +30,6 @@
         $conn->close();
     }
 
-    header("Location: /attendance/instructor.php"); /* Redirect browser */
+    header("Location: /face/instructor.php"); /* Redirect browser */
     exit();
 ?>

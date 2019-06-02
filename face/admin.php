@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -7,7 +5,7 @@
     <!--- basic page needs
     ================================================== -->
     <meta charset="utf-8">
-    <title>Instructor Attendance Management Page</title>
+    <title>Admin Attendance Management Page</title>
     <meta name="description" content="">
     <meta name="author" content="">
 
@@ -29,11 +27,82 @@
             padding-top: 18rem;
             padding-bottom: 15rem;
         }
+
+        
     </style>
 
     <!-- script
     ================================================== -->
     <script src="js/modernizr.js"></script>
+    <script>
+        function filterStudent() {
+            // Declare variables
+            var input, filter, table, tr, td, i, j, txtValue;
+            input = document.getElementById("studentInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("studentTable");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td");
+                if (td) {
+                    for (j = 0; j < td.length; j++){
+                        txtValue = td[j].textContent || td[j].innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                            break;
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+        }
+
+        function updateStudent(id,name,sname,dep){
+            var action = "Update!";
+
+            var input = document.getElementById("studentId");
+            input.value = id;
+            
+            var input = document.getElementById("studentName");
+            input.value = name;
+
+            var input = document.getElementById("studentSname");
+            input.value = sname;
+
+            var input = document.getElementById("studentDep");
+            input.value = dep;
+
+            var input = document.getElementById("studentAction");
+            input.disabled = false;
+            input.innerHTML = action;            
+
+            document.getElementById("change-action").action = "/updateStudent.php";
+        }
+
+        function deleteStudent(id,name,sname,dep){
+            var action = "Delete!";
+            var input = document.getElementById("studentId");
+            input.value = id;
+
+            var input = document.getElementById("studentName");
+            input.value = name;
+
+            var input = document.getElementById("studentSname");
+            input.value = sname;
+
+            var input = document.getElementById("studentDep");
+            input.value = dep;
+
+            var input = document.getElementById("studentAction");
+            input.disabled = false;
+            input.innerHTML = action;
+
+            document.getElementById("change-action").action = "/deleteStudent.php";
+        }
+    </script>
 
     <!-- favicons
     ================================================== -->
@@ -67,7 +136,28 @@
 
             <div style="margin-left:1200px;">
             <ul class="nav">
-                  <li><a><b><i class="icon-user icon-white"></i>admin</a></b></li>
+            <li>
+                <a><b>
+                    <i class="icon-user icon-white"></i>
+                    <?php 
+                    
+                    include('session.php');
+
+                    if($_SESSION['user_type'] != "admin"){
+                        header("location: login/coollogin.php");
+                    }
+
+                    if($LOGGED_USER != null)
+                    {
+                        echo $LOGGED_NAME." ".$LOGGED_SURNAME;
+                    }
+                    else{
+                        echo "Please sign with your userid";
+                    }
+                    ?>
+                </a></b>
+            </li>
+            <b id="logout"><a href="logout.php">Log Out</a></b>
             </ul>
             </div>
             
@@ -102,9 +192,93 @@
 
 
     <div class="col-six tab-full">
-        <h3>Attendance Management</h3>
-        <h5>This section shows the details of the students' attendance.</h5>
-        <mark>red indicates failed students</mark>
+        <h3>Student Management</h3>
+        <h5>Add, Remove or Update Students</h5>
+
+        <form action="/" method="post" enctype="multipart/form-data" name="change-action" id="change-action">
+            <div>
+                <label for="studentId">Student ID</label>
+                <input type="text" id="studentId" name="studentId" readonly style="width:200px;">
+            </div>
+                
+            <div class="full-width" style="left:190px;">
+                <label for="studentName">Name</label>
+                <input type="text" id="studentName" name="studentName" style="width:200px;">
+            </div>
+
+            <div class="full-width" style="left: 725px;">
+                <label for="studentSname">Surname</label>
+                <input type="text" id="studentSname" name="studentSname" style="width:200px;">
+            </div>   
+
+            <div class="full-width" style="left: 725px;">
+                <label for="studentDep">Department</label>
+                <input type="text" id="studentDep" name="studentDep" style="width:200px;">
+            </div> 
+
+            <button type="submit" name="studentAction" id="studentAction" disabled>...</button>
+            <button type="submit" name="studentAction" id="studentAction" disabled>Add!</button>  
+        </form>
+
+        <div class="list">
+            <input type="text" placeholder="Search.." id="studentInput" onkeyup="filterStudent()">
+            
+            <table border="0" cellspacing="2" cellpadding="2" id="studentTable">
+            <tr> 
+                <th>Student ID</th>
+                <th>Name</th>
+                <th>Surame</th>
+                <th>Department</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+                <?php
+                $servername = "127.0.0.1:3307";
+                $username = "root";
+                $password = "";
+                $dbname = "attendance";
+
+                // Create connection
+                $conn = new mysqli($servername, $username, $password, $dbname);
+                // Check connection
+                if ($conn->connect_error) {
+                    die("Connection failed: " . $conn->connect_error);
+                } 
+
+                $sql = "SELECT id, name, surname, department FROM student";
+                $result1 = $conn->query($sql);
+                
+                if ($result1->num_rows > 0) {
+                    while ($row = $result1->fetch_assoc()) {
+                        $id = $row["id"];
+                        $name = $row["name"];
+                        $sname = $row["surname"];
+                        $dep = $row["department"];
+
+                        echo '<tr> 
+                                <td>'.$id.'</td> 
+                                <td>'.$name.'</td> 
+                                <td>'.$sname.'</td>
+                                <td>'.$dep.'</td>
+                                <td>
+                                    <input id="120" value="Update" onclick="updateStudent(\''.$id.'\',\''.$name.'\',\''.$sname.'\',\''.$dep.'\')" type="button" class="btn btn--primary full-width">
+                                </td>
+                                <td>
+                                    <input id="120" value="Delete" onclick="deleteStudent(\''.$id.'\',\''.$name.'\',\''.$sname.'\',\''.$dep.'\')" type="button" class="btn btn--primary full-width">
+                                </td>
+                            </tr>';
+
+                        //echo "<li><a>$id - $name $sname - $dep</a></li>";
+                        
+                    }
+                    $result1->free();
+                } 
+
+                $conn->close();
+                ?>
+            </table>
+        </div>
     </div>
 
     <div class="col-six half-bottom">
@@ -125,7 +299,9 @@
 
             
         <?php
-        $servername = "127.0.0.1";
+
+
+        $servername = "127.0.0.1:3307";
         $username = "root";
         $password = "";
         $dbname = "attendance";
@@ -137,8 +313,8 @@
             die("Connection failed: " . $conn->connect_error);
         } 
 
-        $sql = "SELECT studentsEnrolled, name FROM course";
-        $result = $conn->query($sql);
+        $sql = "SELECT id, name FROM course WHERE instructor =".$LOGGED_USER;
+        $result1 = $conn->query($sql);
 
 
 
@@ -148,17 +324,25 @@
         //         <th>Name</th>
         //     </tr>';
         
-        if ($result->num_rows > 0) {
-            while ($row = $result->fetch_assoc()) {
-                $field1name = $row["studentsEnrolled"];
-                $field2name = $row["name"];
-        
+        if ($result1->num_rows > 0) {
+
+
+            while ($row = $result1->fetch_assoc()) {
+                
+                $courseName = $row["name"];
+                $courseId = $row["id"];
+
+                $sql = "SELECT * FROM enrolled WHERE course=".$courseId;
+                $result2 = $conn->query($sql);
+
+                $numOfStudents = $result2->num_rows;
+
                 echo '<ul> 
-                        <a>'.$field1name.'</a> 
-                        <em>'.$field2name.'</em>
+                        <a>'.$numOfStudents.'</a> 
+                        <em>'.$courseName.'</em>
                     </ul>';
             }
-            $result->free();
+            $result1->free();
         } 
 
         $conn->close();
@@ -192,7 +376,7 @@
     <form name="add" method="post">
         <select name="taskOption">
             <?php
-            $servername = "127.0.0.1";
+            $servername = "127.0.0.1:3307";
             $username = "root";
             $password = "";
             $dbname = "attendance";
@@ -203,8 +387,8 @@
             if ($conn->connect_error) {
                 die("Connection failed: " . $conn->connect_error);
             } 
-
-            $sql = "SELECT id,name FROM course";
+            echo $LOGGED_USER;
+            $sql = 'SELECT id,name FROM course WHERE instructor='.$LOGGED_USER;
             $result = $conn->query($sql);
 
             // echo '<table border="0" cellspacing="2" cellpadding="2"> 
@@ -241,8 +425,9 @@
 
     
     <?php
-
-    $selectOption = $_POST['taskOption'];
+    if(isset($_POST['taskOption'])){
+        $selectOption = $_POST['taskOption'];
+    }
     //echo $selectOption;
 
     //$command = escapeshellcmd('python C:\xampp\htdocs\attendance\videos\folder\test.py');
@@ -252,7 +437,7 @@
 
 
 <?php
-$servername = "127.0.0.1";
+$servername = "127.0.0.1:3307";
 $username = "root";
 $password = "";
 $dbname = "attendance";
@@ -266,7 +451,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-if($selectOption != NULL)
+if(isset($selectOption))
 {
     $sql = "SELECT student.id, student.name, student.surname,student.videoStatus FROM student,enrolled where course=$selectOption and student.id=enrolled.student;";
     $result = $conn->query($sql);
@@ -390,6 +575,7 @@ $conn->close();
             }
             function func()
             {
+                echo "xxxx";
                 $output1 = shell_exec('python /opt/lampp/htdocs/attendance/videos/ok1.py -f /opt/lampp/htdocs/attendance/videos/cng492 -o /opt/lampp/htdocs/attendance/videos/cng492dataset/');
             }
 
@@ -446,7 +632,7 @@ $conn->close();
                 <table>
 
                 <?php
-                $servername = "127.0.0.1";
+                $servername = "127.0.0.1:3307";
                 $username = "root";
                 $password = "";
                 $dbname = "attendance";
@@ -460,7 +646,9 @@ $conn->close();
                     die("Connection failed: " . $conn->connect_error);
                 } 
 
-                $sql = "SELECT student.id,student.name AS sname ,student.surname,course.name AS cname,period.start,classroom.name, class.id AS classid FROM objection, student, class, period, course, classroom WHERE objection.student = student.id AND objection.class = class.id AND class.course = course.id AND class.period = period.id AND class.classroom = classroom.id;";
+                $sql = "SELECT student.id,student.name AS sname ,student.surname,course.name AS cname,period.start,classroom.name, class.id AS classid 
+                        FROM objection, student, class, period, course, classroom, enrolled 
+                        WHERE objection.student = student.id AND objection.class = class.id AND class.course = course.id AND class.period = period.id AND class.classroom = classroom.id AND EXISTS(SELECT * FROM course WHERE instructor =".$LOGGED_USER." AND id=enrolled.course);";
                 $result = $conn->query($sql);
 
 
@@ -488,6 +676,13 @@ $conn->close();
                         $field5name = $copy[4]; // Course period
                         $field6name = $copy[5]; // Classroom name
                         $field7name = $copy[6]; // Class id
+
+                        $somename =  $_SESSION['login_user'];
+                            
+                        // Check to see if session is correct
+                        //echo '<script language="javascript">';
+                        //echo "alert('$somename')";
+                        //echo '</script>';
 
                         
 

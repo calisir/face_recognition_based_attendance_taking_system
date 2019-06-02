@@ -43,7 +43,8 @@ if not os.path.exists(folder):
 
 data = {"encodings": knownEncodings, "names": knownNames}
 f = open(args["encodings"], "wb")
-f.write(pickle.dumps(data))
+# f.write(pickle.dumps(data))
+pickle.dump(data, f, protocol=2)
 f.close()
 
 print("Done")

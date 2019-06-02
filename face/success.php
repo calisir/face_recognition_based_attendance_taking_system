@@ -55,7 +55,7 @@
     <header class="s-header">
 
         <div class="header-logo">
-            <a class="site-logo" href="index.html">
+            <a class="site-logo" href="index.php">
             <img src="images/logohome.png" style="width:500px;height:130px;" alt="Homepage">
             </a>
         </div> <!-- end header-logo -->
@@ -99,7 +99,7 @@
         </div>
 
         <div class="ss-go-top">
-            <a class="smoothscroll" title="Back to Main" href="https://odtuclassv2.moodlecloud.com/">Back to Main</a>
+            <a href="login.php">Back to Main</a>
         </div>
     </footer>
 

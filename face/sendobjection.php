@@ -4,7 +4,8 @@
     {
         $sid = $_POST['sid'];
         $cid = $_POST['cid'];
-        echo $sid;
+        $date = $_POST['classDate'];
+        
 
         $servername = "127.0.0.1:3307";
         $username = "root";
@@ -19,12 +20,12 @@
         } 
 
         
-        $sql = "insert into objection(student,class) values($sid,$cid);";
+        $sql = "insert ignore into objection(student,class,date) values($sid,$cid,\"$date\");";
         $result = $conn->query($sql);
         
         $conn->close();
     }
 
-    header("Location: /attendance/attendance.php"); /* Redirect browser */
+    header("Location: /face/attendance.php"); /* Redirect browser */
     exit();
 ?>

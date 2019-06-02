@@ -7,14 +7,15 @@ import os
 import time
 ap = argparse.ArgumentParser()
 ap.add_argument("-e", "--encodings", required=True)
+ap.add_argument("-i", "--inputs", required=True)
+ap.add_argument("-t", "--textfile", required=True)
 ap.add_argument("-d", "--detection-method", type=str, default="cnn")
 args = vars(ap.parse_args())
 
 names = set()
-for root, dirs, files in os.walk("C://xampp//htdocs//face//videos//outputs"):
+for root, dirs, files in os.walk(args["inputs"]):
 	for file in files:
-		path = root + "/" + file
-		print(path)
+		path = args["inputs"] + "/" + file
 		image = cv2.imread(path)
 		data = pickle.loads(open(args["encodings"], "rb").read())
 		rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
@@ -40,8 +41,9 @@ for root, dirs, files in os.walk("C://xampp//htdocs//face//videos//outputs"):
 				print("X: "+name)
 
 
-
+# Attendance update yeri
+# Database ile yapilabilir.
 print(names)
-f=open("C://xampp//htdocs//face//videos//attendance.txt","w")
+f=open(args["textfile"],"a")
 for name in names:
     f.write("%s\n" % name)
